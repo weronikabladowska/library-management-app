@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name = "admins")
+@Entity(name = "libraryAdmins")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

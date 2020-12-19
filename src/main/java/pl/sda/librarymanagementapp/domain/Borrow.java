@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity(name = "borrowings")
+@Entity(name = "borrows")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
