@@ -19,4 +19,7 @@ public class LibraryAdmin {
     @Id
     @GeneratedValue
     Long id;
+
+    private String userName;
+    private String password;
 }
