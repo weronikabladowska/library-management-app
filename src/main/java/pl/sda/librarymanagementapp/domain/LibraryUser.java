@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 
-public class User {
+public class LibraryUser {
 
     @Id
     @GeneratedValue

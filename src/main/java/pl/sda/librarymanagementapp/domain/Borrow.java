@@ -5,20 +5,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
-@Entity(name = "books")
+@Entity(name = "borrowings")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+public class Borrow {
 
-public class Book {
     @Id
     @GeneratedValue
-    private Long id;
+    Long id;
 
-    @Column(name = "title")
-    private String title;
+    private LocalDate borrowDate;
 
-    @ManyToOne
-    private LibraryUser libraryUser;
+    @OneToOne
+    Reservation reservation;
+
 }

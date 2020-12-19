@@ -3,7 +3,6 @@ package pl.sda.librarymanagementapp.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,6 +24,6 @@ public class Role {
     @ManyToMany
     @JoinTable(name = "roles_to_users", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
             ,inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private Set<User> users;
+    private Set<LibraryUser> libraryUsers;
 
 }
