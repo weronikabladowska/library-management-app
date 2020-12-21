@@ -20,7 +20,7 @@ public class Book {
     private String author;
     private String publisher;
     private String isbn;
-    private int publicationYear;
+    private String publicationYear;
     private String placeofPublication;
 
     @ManyToOne
