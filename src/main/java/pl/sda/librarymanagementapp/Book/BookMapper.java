@@ -1,4 +1,12 @@
 package pl.sda.librarymanagementapp.Book;
 
-public class BookMapper {
+import org.mapstruct.Mapper;
+
+@Mapper
+public interface BookMapper {
+
+    Book toBook(BookDto bookDto);
+    BookDto toBookDto(Book book);
+
+
 }
