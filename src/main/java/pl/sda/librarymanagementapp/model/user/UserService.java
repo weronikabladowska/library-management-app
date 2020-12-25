@@ -1,15 +1,18 @@
 package pl.sda.librarymanagementapp.model.user;
 
+import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.sda.librarymanagementapp.domain.user.Adress;
 import pl.sda.librarymanagementapp.domain.user.Library_user;
 import pl.sda.librarymanagementapp.exceptions.BadRequestException;
 import pl.sda.librarymanagementapp.model.mapper.UserMapper;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +27,24 @@ public class UserService {
         return userMapper.userToUserDTO(user);
     }
 
+    public List<UserDTO> findUserByLastName(String lastName) {
+        return userRepository.findLibrary_userByLastName(lastName)
+                .stream()
+                .map(userMapper::userToUserDTO)
+                .collect(Collectors.toList());
+    }
+
+    public UserDTO findUserByEmail(String email) {
+        return userMapper.userToUserDTO(userRepository.findLibrary_userByEmail(email));
+    }
+
+    public UserDTO findUserByTelNumber(Long number) {
+        return userMapper.userToUserDTO(userRepository.findLibrary_userByTel(number));
+    }
+
+
     //    Żeby stworzyć usera trzeba znać id Adresu lub wprowadzić nowy!
-    public UserDTO createUser(Library_user user) {
+    public UserDTO createUser(@NotNull Library_user user) {
 
         if (user.getFirstName().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwą nie może być puste");
@@ -36,7 +55,7 @@ public class UserService {
         if (user.getLastName().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwiskiem nie może być puste");
         }
-        if (user.getRole()==null) {
+        if (user.getRole() == null) {
             throw new BadRequestException("Pole z nazwiskiem nie może być puste");
         }
 

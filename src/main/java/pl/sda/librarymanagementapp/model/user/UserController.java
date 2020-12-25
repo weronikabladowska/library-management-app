@@ -8,6 +8,8 @@ import pl.sda.librarymanagementapp.domain.user.Adress;
 import pl.sda.librarymanagementapp.domain.user.Library_user;
 import pl.sda.librarymanagementapp.exceptions.BadBoundaryException;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -35,9 +37,24 @@ public class UserController {
 
     @GetMapping
     public Page<UserDTO> getPageOfUsers(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
-        if (pageNum<=0 && pageSize<0) {
-        return userService.getPageOfUsers(pageNum, pageSize);}
-        else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
+        if (pageNum <= 0 && pageSize < 0) {
+            return userService.getPageOfUsers(pageNum, pageSize);
+        } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
+    }
+
+    @GetMapping("/{lastName}")
+    public List<UserDTO> getUserByLastName(@PathVariable final String lastName) {
+        return userService.findUserByLastName(lastName);
+    }
+
+    @GetMapping("/{email}")
+    public UserDTO getUserByEmail(@PathVariable final String email) {
+        return userService.findUserByEmail(email);
+    }
+
+    @GetMapping("/{tel}")
+    public UserDTO getUserByTelNumber(@PathVariable final Long tel) {
+        return userService.findUserByTelNumber(tel);
     }
 
 

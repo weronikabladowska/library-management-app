@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserIntegrationTest {
+public class UserCreateIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
