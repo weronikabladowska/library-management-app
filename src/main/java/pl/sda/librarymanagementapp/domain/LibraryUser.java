@@ -21,7 +21,6 @@ public class LibraryUser {
     private Long id;
 
     private String userName;
-    private String password;
 
     @Column(name = "first_name")
     private String firstName;

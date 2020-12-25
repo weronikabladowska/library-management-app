@@ -27,7 +27,7 @@ public class Adress {
 
     @OneToOne
     @JoinColumn (name = "user_id")
-    private User user;
+    private LibraryUser libraryUser;
 
 
 }

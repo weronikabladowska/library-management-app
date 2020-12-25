@@ -19,7 +19,7 @@ public class Borrow {
 
     private LocalDate borrowDate;
 
-    @OneToOne
-    Reservation reservation;
+//    @OneToOne
+//    Reservation reservation;
 
 }
