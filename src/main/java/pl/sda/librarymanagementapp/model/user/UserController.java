@@ -1,4 +1,4 @@
-package pl.sda.librarymanagementapp.model;
+package pl.sda.librarymanagementapp.model.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

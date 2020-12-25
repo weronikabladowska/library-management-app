@@ -1,4 +1,4 @@
-package pl.sda.librarymanagementapp.model;
+package pl.sda.librarymanagementapp.model.user;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
