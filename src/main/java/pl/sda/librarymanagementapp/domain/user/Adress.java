@@ -1,4 +1,4 @@
-package pl.sda.librarymanagementapp.domain;
+package pl.sda.librarymanagementapp.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class Adress {
 
     @OneToOne
     @JoinColumn (name = "user_id")
-    private LibraryUser libraryUser;
+    private Library_user libraryuser;
 
 
 }

@@ -3,6 +3,7 @@ package pl.sda.librarymanagementapp.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.sda.librarymanagementapp.domain.user.Library_user;
 
 import javax.persistence.*;
 
@@ -24,5 +25,5 @@ public class Book {
     private String placeofPublication;
 
     @ManyToOne
-    private LibraryUser libraryUser;
+    private Library_user libraryuser;
 }

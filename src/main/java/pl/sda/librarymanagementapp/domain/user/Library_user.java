@@ -1,9 +1,12 @@
-package pl.sda.librarymanagementapp.domain;
+package pl.sda.librarymanagementapp.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.sda.librarymanagementapp.domain.Book;
+import pl.sda.librarymanagementapp.domain.user.Adress;
+import pl.sda.librarymanagementapp.domain.user.Role;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 
-public class LibraryUser {
+public class Library_user {
 
     @Id
     @GeneratedValue
@@ -34,6 +37,8 @@ public class LibraryUser {
     private String email;
     @Column (name="tel")
     private Long tel;
+    @Column (name="role")
+    private Role role;
 
 
 
