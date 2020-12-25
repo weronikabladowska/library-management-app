@@ -9,9 +9,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Slf4j
 public class ExceptionHandler {
 
-    @org.springframework.web.bind.annotation.ExceptionHandler (BadBoundaryException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(BadBoundaryException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     void badBoundryException(RuntimeException exception){
         log.error(exception.getMessage());
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler (BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    void badRequestException(RuntimeException exception){
+        log.error(exception.getMessage());
+    }
+
 }

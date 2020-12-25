@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.librarymanagementapp.domain.user.Adress;
 import pl.sda.librarymanagementapp.domain.user.Library_user;
+import pl.sda.librarymanagementapp.exceptions.BadRequestException;
 import pl.sda.librarymanagementapp.model.mapper.UserMapper;
 
 @Service
@@ -25,6 +26,20 @@ public class UserService {
 
     //    Żeby stworzyć usera trzeba znać id Adresu lub wprowadzić nowy!
     public UserDTO createUser(Library_user user) {
+
+        if (user.getFirstName().trim().isEmpty()) {
+            throw new BadRequestException("Pole z nazwą nie może być puste");
+        }
+        if (user.getEmail().trim().isEmpty()) {
+            throw new BadRequestException("Pole z email nie może być puste");
+        }
+        if (user.getLastName().trim().isEmpty()) {
+            throw new BadRequestException("Pole z nazwiskiem nie może być puste");
+        }
+        if (user.getRole()==null) {
+            throw new BadRequestException("Pole z nazwiskiem nie może być puste");
+        }
+
         return userMapper.userToUserDTO(user);
     }
 
