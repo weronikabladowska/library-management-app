@@ -8,17 +8,20 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "users")
+@Entity(name = "libraryUsers")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 
-public class User {
+public class LibraryUser {
 
     @Id
     @GeneratedValue
     private Long id;
+
+    private String userName;
+    private String password;
 
     @Column(name = "first_name")
     private String firstName;

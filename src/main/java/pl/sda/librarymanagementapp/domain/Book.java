@@ -16,9 +16,13 @@ public class Book {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "title")
     private String title;
+    private String author;
+    private String publisher;
+    private String isbn;
+    private String publicationYear;
+    private String placeofPublication;
 
     @ManyToOne
-    private User user;
+    private LibraryUser libraryUser;
 }
