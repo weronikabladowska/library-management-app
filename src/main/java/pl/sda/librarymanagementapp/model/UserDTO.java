@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.sda.librarymanagementapp.domain.user.Role;
 
 @Data
 @NoArgsConstructor
@@ -15,8 +16,11 @@ public class UserDTO {
     @NotNull
     private String lastName;
     private Integer year;
-    private String email;
+    @NotNull
+    private String email; //email jest loginem
     private Long tel;
+    @NotNull
+    private Role role;
 
 
 }
