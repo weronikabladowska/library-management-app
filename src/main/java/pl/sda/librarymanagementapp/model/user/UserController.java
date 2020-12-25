@@ -17,9 +17,16 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO createUser(@RequestBody Library_user user, @RequestBody Adress adress) {
-        return userService.createUser(user, adress);
+    public UserDTO createUser(@RequestBody Library_user user) {
+        return userService.createUser(user);
     }
+
+//   ToDO:// User musi posiadać adress, ale jak testować metedę z dwoma obiektami do dodania (?)
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public UserDTO createUser(@RequestBody Library_user user, @RequestBody Adress adress) {
+//        return userService.createUser(user, adress);
+//    }
 
     @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable final Long id) {

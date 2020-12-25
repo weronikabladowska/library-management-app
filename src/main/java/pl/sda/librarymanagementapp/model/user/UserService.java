@@ -24,10 +24,15 @@ public class UserService {
     }
 
     //    Żeby stworzyć usera trzeba znać id Adresu lub wprowadzić nowy!
-    public UserDTO createUser(Library_user user, Adress adress) {
-        user.setUserAdress(adress);
+    public UserDTO createUser(Library_user user) {
         return userMapper.userToUserDTO(user);
     }
+
+//    //    Żeby stworzyć usera trzeba znać id Adresu lub wprowadzić nowy!
+//    public UserDTO createUser(Library_user user, Adress adress) {
+//        user.setUserAdress(adress);
+//        return userMapper.userToUserDTO(user);
+//    }
 
     public Page<UserDTO> getPageOfUsers(Integer pageNum, Integer pageSize) {
         final Page<Library_user> page = userRepository.findAll(PageRequest.of(pageNum, pageSize));

@@ -12,6 +12,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import pl.sda.librarymanagementapp.domain.user.Adress;
 import pl.sda.librarymanagementapp.domain.user.Role;
 import pl.sda.librarymanagementapp.model.user.UserDTO;
 import pl.sda.librarymanagementapp.model.user.UserRepository;
@@ -45,7 +46,7 @@ public class UserIntegrationTest {
 
         //then
         MockHttpServletResponse response = result.getResponse();
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
     }
 
     @Test
@@ -115,6 +116,23 @@ public class UserIntegrationTest {
         MockHttpServletResponse response = result.getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
+
+//    @Test
+//    void createUser_whenYearIsEmpty_returns201StatusCode() throws Exception {
+//        //given
+//        userRepository.deleteAll();
+//        UserDTO userDTO = new UserDTO(null, "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER );
+//        String requestBody = objectMapper.writeValueAsString(userDTO);
+//        MockHttpServletRequestBuilder post = post("/users")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(requestBody);
+//        //when
+//        MvcResult result = mockMvc.perform(post).andReturn();
+//
+//        //then
+//        MockHttpServletResponse response = result.getResponse();
+//        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+//    }
 
 
 }
