@@ -33,15 +33,13 @@ public class Library_user {
     @Column (name="role")
     private Role role;
 
-
-//
 //    @ManyToMany (mappedBy = "readersList")
 //    @EqualsAndHashCode.Exclude
 //    @ToString.Exclude
 //    private List<Rent> rents;
-//
-//    @OneToOne
-//    @JoinColumn(name = "user_id")
-//    private Address userAddress;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private Address userAddress;
 
 }

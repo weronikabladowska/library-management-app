@@ -1,4 +1,4 @@
-package pl.sda.librarymanagementapp.model;
+package pl.sda.librarymanagementapp.model.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -201,12 +201,11 @@ public class UserCreateIntegrationTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
-
 //    @Test
-//    void createUser_whenYearIsEmpty_returns201StatusCode() throws Exception {
+//    void createUser_whenEmailIsNull_returns400StatusCode() throws Exception {
 //        //given
 //        userRepository.deleteAll();
-//        UserDTO userDTO = new UserDTO(null, "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER );
+//        UserDTO userDTO = new UserDTO("Dawid", "Nowak", 1999, null, 589745632L, Role.USER);
 //        String requestBody = objectMapper.writeValueAsString(userDTO);
 //        MockHttpServletRequestBuilder post = post("/users")
 //                .contentType(MediaType.APPLICATION_JSON)
@@ -218,6 +217,9 @@ public class UserCreateIntegrationTest {
 //        MockHttpServletResponse response = result.getResponse();
 //        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 //    }
+
+
+
 
 
 }

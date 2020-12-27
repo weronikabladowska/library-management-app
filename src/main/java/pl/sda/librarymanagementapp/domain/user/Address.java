@@ -26,9 +26,9 @@ public class Address {
     @Column (name ="postCode")
     private String postCode;
 
-//    @OneToOne
-//    @JoinColumn (name = "user_id")
-//    private Library_user libraryuser;
+    @OneToOne
+    @JoinColumn (name = "user_id")
+    private Library_user libraryuser;
 
 
 }

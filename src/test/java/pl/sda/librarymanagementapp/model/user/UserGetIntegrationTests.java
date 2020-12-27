@@ -1,4 +1,4 @@
-package pl.sda.librarymanagementapp.model;
+package pl.sda.librarymanagementapp.model.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
