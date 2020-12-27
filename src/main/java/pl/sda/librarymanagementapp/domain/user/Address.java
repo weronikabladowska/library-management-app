@@ -2,6 +2,7 @@ package pl.sda.librarymanagementapp.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Adress {
+public class Address {
 
     @Id
     @GeneratedValue
@@ -25,9 +26,9 @@ public class Adress {
     @Column (name ="postCode")
     private String postCode;
 
-    @OneToOne
-    @JoinColumn (name = "user_id")
-    private Library_user libraryuser;
+//    @OneToOne
+//    @JoinColumn (name = "user_id")
+//    private Library_user libraryuser;
 
 
 }

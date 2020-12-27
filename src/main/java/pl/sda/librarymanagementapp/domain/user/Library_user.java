@@ -1,10 +1,7 @@
 package pl.sda.librarymanagementapp.domain.user;
 
 import lombok.*;
-import pl.sda.librarymanagementapp.domain.Book;
 import pl.sda.librarymanagementapp.domain.Rent;
-import pl.sda.librarymanagementapp.domain.user.Adress;
-import pl.sda.librarymanagementapp.domain.user.Role;
 
 import javax.persistence.*;
 import java.util.List;
@@ -37,14 +34,14 @@ public class Library_user {
     private Role role;
 
 
-
-    @ManyToMany (mappedBy = "readersList")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<Rent> rents;
-
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private Adress userAdress;
+//
+//    @ManyToMany (mappedBy = "readersList")
+//    @EqualsAndHashCode.Exclude
+//    @ToString.Exclude
+//    private List<Rent> rents;
+//
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    private Address userAddress;
 
 }

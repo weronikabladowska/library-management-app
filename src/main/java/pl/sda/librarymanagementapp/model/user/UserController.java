@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.librarymanagementapp.domain.user.Adress;
 import pl.sda.librarymanagementapp.domain.user.Library_user;
 import pl.sda.librarymanagementapp.exceptions.BadBoundaryException;
 

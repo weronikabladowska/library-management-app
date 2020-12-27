@@ -23,9 +23,9 @@ public class Rent {
     private LocalDate borrowDate;
     private LocalDate returnDate;
 
-    @ManyToMany (mappedBy = "rents")
-    @EqualsAndHashCode.Exclude
-    List<Library_user> readersList;
+//    @ManyToMany (mappedBy = "rents")
+//    @EqualsAndHashCode.Exclude
+//    List<Library_user> readersList;
 
 //    @OneToOne
 //    Reservation reservation;
