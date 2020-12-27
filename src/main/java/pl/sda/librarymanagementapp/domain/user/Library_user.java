@@ -1,10 +1,8 @@
 package pl.sda.librarymanagementapp.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.sda.librarymanagementapp.domain.Book;
+import pl.sda.librarymanagementapp.domain.Rent;
 import pl.sda.librarymanagementapp.domain.user.Adress;
 import pl.sda.librarymanagementapp.domain.user.Role;
 
@@ -40,9 +38,10 @@ public class Library_user {
 
 
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<Book>books;
+    @ManyToMany (mappedBy = "readersList")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Rent> rents;
 
     @OneToOne
     @JoinColumn(name = "user_id")
