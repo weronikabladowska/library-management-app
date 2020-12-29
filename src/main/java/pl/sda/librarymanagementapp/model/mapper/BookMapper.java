@@ -1,7 +1,7 @@
 package pl.sda.librarymanagementapp.model.mapper;
 
 import org.mapstruct.Mapper;
-import pl.sda.librarymanagementapp.domain.Book;
+import pl.sda.librarymanagementapp.domain.book.Book;
 import pl.sda.librarymanagementapp.model.book.BookDto;
 
 @Mapper

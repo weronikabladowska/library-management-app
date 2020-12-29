@@ -1,4 +1,4 @@
-package pl.sda.librarymanagementapp.domain;
+package pl.sda.librarymanagementapp.domain.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import pl.sda.librarymanagementapp.domain.LibraryUser;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity(name = "books")
 @AllArgsConstructor
@@ -30,5 +27,6 @@ public class Book {
 
     @ManyToOne
     private LibraryUser libraryUser;
+
 
 }

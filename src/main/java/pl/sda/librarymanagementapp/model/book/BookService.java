@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.sda.librarymanagementapp.domain.Book;
+import pl.sda.librarymanagementapp.domain.book.Book;
 import pl.sda.librarymanagementapp.exception.BadRequestException;
 import pl.sda.librarymanagementapp.exception.DatabaseSavingErrorException;
 import pl.sda.librarymanagementapp.exception.NotFoundException;
