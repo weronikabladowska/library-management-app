@@ -1,6 +1,7 @@
-package pl.sda.librarymanagementapp.Book;
+package pl.sda.librarymanagementapp.model.book;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import pl.sda.librarymanagementapp.domain.Book;
 
 public interface BookRepository extends JpaRepository<Book,Long> {
 }

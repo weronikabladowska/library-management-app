@@ -1,4 +1,4 @@
-package pl.sda.librarymanagementapp.Book;
+package pl.sda.librarymanagementapp.model.book;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

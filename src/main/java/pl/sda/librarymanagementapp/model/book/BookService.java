@@ -1,13 +1,13 @@
-package pl.sda.librarymanagementapp.Book;
+package pl.sda.librarymanagementapp.model.book;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import pl.sda.librarymanagementapp.domain.Book;
 import pl.sda.librarymanagementapp.exception.BadRequestException;
 import pl.sda.librarymanagementapp.exception.DatabaseSavingErrorException;
 import pl.sda.librarymanagementapp.exception.NotFoundException;

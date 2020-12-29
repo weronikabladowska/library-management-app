@@ -1,28 +1,21 @@
-package pl.sda.librarymanagementapp.Book;
+package pl.sda.librarymanagementapp.model.book;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+@Builder
+public class BookDto {
 
-    @Id
-    @GeneratedValue
     private Long id;
-
     private String title;
     private String author;
     private String publisher;
     private String publicationYear;
     private String placeOfPublication;
     private String isbn;
-
 }
