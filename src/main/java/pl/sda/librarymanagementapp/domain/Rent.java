@@ -2,6 +2,7 @@ package pl.sda.librarymanagementapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import pl.sda.librarymanagementapp.domain.book.Book;
 import pl.sda.librarymanagementapp.domain.user.Library_user;
 
 import javax.persistence.Entity;
@@ -29,6 +30,13 @@ public class Rent {
     @ManyToMany
     @EqualsAndHashCode.Exclude
     List<Library_user> readersList;
+
+    @JsonIgnore
+    @ManyToMany
+    @EqualsAndHashCode.Exclude
+    List<Book> booksList;
+
+
 
 //    @OneToOne
 //    Reservation reservation;

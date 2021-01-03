@@ -3,6 +3,7 @@ package pl.sda.librarymanagementapp.domain.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pl.sda.librarymanagementapp.domain.Rent;
+import pl.sda.librarymanagementapp.domain.book.Book;
 
 import javax.persistence.*;
 import java.util.List;
@@ -37,5 +38,8 @@ public class Library_user {
     @ManyToOne
 //    @JoinColumn(name = "user_id")
     private Address userAddress;
+
+
+
 
 }
