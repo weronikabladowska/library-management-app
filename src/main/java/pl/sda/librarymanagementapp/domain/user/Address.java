@@ -1,11 +1,13 @@
 package pl.sda.librarymanagementapp.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity (name ="adress")
 @Data
@@ -26,9 +28,10 @@ public class Address {
     @Column (name ="postCode")
     private String postCode;
 
-    @OneToOne
-    @JoinColumn (name = "user_id")
-    private Library_user libraryuser;
+    @JsonIgnore
+    @ManyToOne
+//    @JoinColumn (name = "user_id")
+    private List<Library_user> libraryusers;
 
 
 }

@@ -1,5 +1,6 @@
 package pl.sda.librarymanagementapp.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pl.sda.librarymanagementapp.domain.Rent;
 
@@ -33,13 +34,15 @@ public class Library_user {
     @Column (name="role")
     private Role role;
 
-//    @ManyToMany (mappedBy = "readersList")
-//    @EqualsAndHashCode.Exclude
-//    @ToString.Exclude
-//    private List<Rent> rents;
+    @JsonIgnore
+    @ManyToMany (mappedBy = "readersList")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Rent> rents;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    @OneToMany (mappedBy = "libraryusers")
+//    @JoinColumn(name = "user_id")
     private Address userAddress;
 
 }

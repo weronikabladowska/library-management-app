@@ -37,27 +37,28 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-//    @GetMapping
-//    public Page<UserDTO> getPageOfUsers(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
-//        if (pageNum >= 0 && pageSize > 0) {
-//            return userService.getPageOfUsers(pageNum, pageSize);
-//        } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
-//    }
-//
-//    @GetMapping("/{lastName}")
-//    public List<UserDTO> getUserByLastName(@PathVariable final String lastName) {
-//        return userService.findUserByLastName(lastName);
-//    }
-//
-//    @GetMapping("/{email}")
-//    public UserDTO getUserByEmail(@PathVariable final String email) {
-//        return userService.findUserByEmail(email);
-//    }
-//
-//    @GetMapping("/{tel}")
-//    public UserDTO getUserByTelNumber(@PathVariable final Long tel) {
-//        return userService.findUserByTelNumber(tel);
-//    }
-//
+//ToDo: Jak przekazać pageNum i PageSize w testach?
+    @GetMapping
+    public Page<UserDTO> getPageOfUsers(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
+        if (pageNum >= 0 && pageSize > 0) {
+            return userService.getPageOfUsers(pageNum, pageSize);
+        } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
+    }
+
+    @GetMapping("/lastName/{lastName}")
+    public List<UserDTO> getUserByLastName(@PathVariable final String lastName) {
+        return userService.findUserByLastName(lastName);
+    }
+
+    @GetMapping("/email/{email}")
+    public UserDTO getUserByEmail(@PathVariable final String email) {
+        return userService.findUserByEmail(email);
+    }
+
+    @GetMapping("/tel/{tel}")
+    public UserDTO getUserByTelNumber(@PathVariable final Long tel) {
+        return userService.findUserByTelNumber(tel);
+    }
+
 
 }
