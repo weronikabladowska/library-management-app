@@ -1,4 +1,4 @@
-package pl.sda.librarymanagementapp.domain;
+package pl.sda.librarymanagementapp.domain.rent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

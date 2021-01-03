@@ -2,8 +2,7 @@ package pl.sda.librarymanagementapp.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import pl.sda.librarymanagementapp.domain.Rent;
-import pl.sda.librarymanagementapp.domain.book.Book;
+import pl.sda.librarymanagementapp.domain.rent.Rent;
 
 import javax.persistence.*;
 import java.util.List;
