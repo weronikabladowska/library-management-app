@@ -42,21 +42,19 @@ public class UserService {
         return userMapper.userToUserDTO(userRepository.findLibrary_userByTel(number));
     }
 
-
-    //    Żeby stworzyć usera trzeba znać id Adresu lub wprowadzić nowy!
     public UserDTO createUser(@NotNull Library_user user) {
 
         if (user.getFirstName().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwą nie może być puste");
         }
-        if (user.getEmail().trim().isEmpty()) {
+        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
             throw new BadRequestException("Pole z email nie może być puste");
         }
         if (user.getLastName().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwiskiem nie może być puste");
         }
         if (user.getRole() == null) {
-            throw new BadRequestException("Pole z nazwiskiem nie może być puste");
+            throw new BadRequestException("Pole z nazwą roli nie może być puste");
         }
 
         return userMapper.userToUserDTO(user);

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.librarymanagementapp.domain.user.Library_user;
 import pl.sda.librarymanagementapp.exceptions.BadBoundaryException;
+import pl.sda.librarymanagementapp.model.mapper.UserMapper;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -23,6 +25,7 @@ public class UserController {
     }
 
 //   ToDO:// User musi posiadać adress, ale jak testować metedę z dwoma obiektami do dodania (?)
+
 //    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
 //    public UserDTO createUser(@RequestBody Library_user user, @RequestBody Adress adress) {
@@ -30,31 +33,31 @@ public class UserController {
 //    }
 
     @GetMapping("/{id}")
-    public UserDTO getUserById(@PathVariable final Long id) {
+    public UserDTO getUserById(@PathVariable Long id) {
         return userService.findUserById(id);
     }
 
-    @GetMapping
-    public Page<UserDTO> getPageOfUsers(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
-        if (pageNum <= 0 && pageSize < 0) {
-            return userService.getPageOfUsers(pageNum, pageSize);
-        } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
-    }
-
-    @GetMapping("/{lastName}")
-    public List<UserDTO> getUserByLastName(@PathVariable final String lastName) {
-        return userService.findUserByLastName(lastName);
-    }
-
-    @GetMapping("/{email}")
-    public UserDTO getUserByEmail(@PathVariable final String email) {
-        return userService.findUserByEmail(email);
-    }
-
-    @GetMapping("/{tel}")
-    public UserDTO getUserByTelNumber(@PathVariable final Long tel) {
-        return userService.findUserByTelNumber(tel);
-    }
-
+//    @GetMapping
+//    public Page<UserDTO> getPageOfUsers(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
+//        if (pageNum >= 0 && pageSize > 0) {
+//            return userService.getPageOfUsers(pageNum, pageSize);
+//        } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
+//    }
+//
+//    @GetMapping("/{lastName}")
+//    public List<UserDTO> getUserByLastName(@PathVariable final String lastName) {
+//        return userService.findUserByLastName(lastName);
+//    }
+//
+//    @GetMapping("/{email}")
+//    public UserDTO getUserByEmail(@PathVariable final String email) {
+//        return userService.findUserByEmail(email);
+//    }
+//
+//    @GetMapping("/{tel}")
+//    public UserDTO getUserByTelNumber(@PathVariable final Long tel) {
+//        return userService.findUserByTelNumber(tel);
+//    }
+//
 
 }

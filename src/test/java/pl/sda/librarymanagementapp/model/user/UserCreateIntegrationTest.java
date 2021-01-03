@@ -201,22 +201,22 @@ public class UserCreateIntegrationTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
-//    @Test
-//    void createUser_whenEmailIsNull_returns400StatusCode() throws Exception {
-//        //given
-//        userRepository.deleteAll();
-//        UserDTO userDTO = new UserDTO("Dawid", "Nowak", 1999, null, 589745632L, Role.USER);
-//        String requestBody = objectMapper.writeValueAsString(userDTO);
-//        MockHttpServletRequestBuilder post = post("/users")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestBody);
-//        //when
-//        MvcResult result = mockMvc.perform(post).andReturn();
-//
-//        //then
-//        MockHttpServletResponse response = result.getResponse();
-//        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-//    }
+    @Test
+    void createUser_whenEmailIsNull_returns400StatusCode() throws Exception {
+        //given
+        userRepository.deleteAll();
+        UserDTO userDTO = new UserDTO("Dawid", "Nowak", 1999, null, 589745632L, Role.USER);
+        String requestBody = objectMapper.writeValueAsString(userDTO);
+        MockHttpServletRequestBuilder post = post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody);
+        //when
+        MvcResult result = mockMvc.perform(post).andReturn();
+
+        //then
+        MockHttpServletResponse response = result.getResponse();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
 
 
 

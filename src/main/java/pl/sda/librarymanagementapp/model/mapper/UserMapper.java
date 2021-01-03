@@ -9,6 +9,6 @@ import pl.sda.librarymanagementapp.model.user.UserDTO;
 public interface UserMapper {
 
     @Mapping(target = "password", ignore = true)
-    Library_user userDTOtoUser (UserDTO userDTO);
-    UserDTO userToUserDTO (Library_user library_user);
+    Library_user userDTOtoUser(UserDTO userDTO);
+    UserDTO userToUserDTO(Library_user library_user);
 }
