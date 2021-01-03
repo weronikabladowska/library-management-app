@@ -1,18 +1,17 @@
 package pl.sda.librarymanagementapp.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity (name ="adress")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Address {
 
     @Id
@@ -31,7 +30,7 @@ public class Address {
     @JsonIgnore
     @ManyToOne
 //    @JoinColumn (name = "user_id")
-    private List<Library_user> libraryusers;
+    private List<Library_user> libraryusers = new ArrayList<>();
 
 
 }

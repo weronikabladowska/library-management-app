@@ -7,7 +7,7 @@ import pl.sda.librarymanagementapp.domain.Rent;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "libraryUsers")
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
