@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,9 +26,9 @@ public class Rent {
     private LocalDate returnDate;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "rents")
+    @ManyToMany
     @EqualsAndHashCode.Exclude
-    List<Library_user> readersList = new ArrayList<>();
+    List<Library_user> readersList;
 
 //    @OneToOne
 //    Reservation reservation;
