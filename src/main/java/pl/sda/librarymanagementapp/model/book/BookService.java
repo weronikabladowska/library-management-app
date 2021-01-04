@@ -23,7 +23,7 @@ public class BookService {
     private final BookRepository bookRepository;
 
 
-    public Book getBook(String title) {
+    public Book findBookByTitle(String title) {
         String url = UriComponentsBuilder.newInstance()
                 .scheme("http")
                 .host("data.bn.org.pl/api/bibs.json")

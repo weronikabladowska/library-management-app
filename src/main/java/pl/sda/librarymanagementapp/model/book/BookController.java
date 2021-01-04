@@ -17,11 +17,8 @@ public class BookController {
     private final BookMapper bookMapper;
 
     @GetMapping("/book/{title}")
+    public BookDto getBookByTitle(@PathVariable String title) {
+        return bookService.findBookByTitle(title);
 
-    public BookDto getBook(@PathVariable String title) {
-        Book book = bookService.getBook(title);
-        BookDto bookDto = bookMapper.toBookDto(book);
-        bookDto.setTitle(book.getTitle());
-        return bookDto;
     }
 }
