@@ -11,57 +11,40 @@ import pl.sda.librarymanagementapp.domain.book.Book;
 import pl.sda.librarymanagementapp.exception.BadRequestException;
 import pl.sda.librarymanagementapp.exception.DatabaseSavingErrorException;
 import pl.sda.librarymanagementapp.exception.NotFoundException;
+import pl.sda.librarymanagementapp.model.mapper.BookMapper;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class BookService {
-//    data.bn.org.pl/docs/bibs
-//    /api/bibs.json?limit=20&sinceId=2
+
 
     private final RestTemplate restTemplate;
-    private final ObjectMapper objectMapper;
+    private final BookMapper bookMapper;
     private final BookRepository bookRepository;
 
 
-    public Book findBookByTitle(String title) {
-
-        ResponseEntity<String> entity = restTemplate.getForEntity(createURL(title), String.class);
+    public List<BookDto> findBookByTitle(String title) {
+//todo stworzyc strone odpowiedzi
+        ResponseEntity<BookSourceResponse> entity = restTemplate.getForEntity(createURL(title), BookSourceResponse.class);
 
         if (!entity.getStatusCode().is2xxSuccessful()) {
             throw new BadRequestException("Cannot get the data from external service");
         }
+        BookSourceResponse response = entity.getBody();
 
-        String response = entity.getBody();
+        List<BookDto> books = response.getBibs()
+                .stream()
+                .map(bookMapper::toBookDto)
+                .collect(Collectors.toList());
 
-        try {
-            BookSourceResponse singleBook = objectMapper.readValue(response, BookSourceResponse.class);
-
-            BookSourceResponse.SingleBook singleBook1 = singleBook.getBibs()
-                    .stream()
-                    .filter(singleBook2 -> singleBook2.getTitle().equals(title))
-                    .findFirst()
-                    .orElseThrow(() -> new NotFoundException("Cannot find the book with title: " + title));
-
-            Book book = new Book();
-            book.setTitle(title);
-            book.setAuthor(singleBook1.getAuthor());
-            book.setPublisher(singleBook1.getPublisher());
-            book.setPublicationYear(singleBook1.getPublicationYear());
-            book.setPlaceOfPublication(singleBook1.getPlaceOfPublication());
-
-            Book savedBook = bookRepository.save(book);
-            return savedBook;
-
-
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            new DatabaseSavingErrorException("Cannot save book to database");
-            return null;
-
-
-        }
+        return books;
     }
 
+    //    data.bn.org.pl/docs/bibs
+//    /api/bibs.json?limit=20&sinceId=2
     public String createURL(String title) {
         String url = UriComponentsBuilder.newInstance()
                 .scheme("http")
