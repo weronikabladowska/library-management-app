@@ -24,14 +24,8 @@ public class BookService {
 
 
     public Book findBookByTitle(String title) {
-        String url = UriComponentsBuilder.newInstance()
-                .scheme("http")
-                .host("data.bn.org.pl/api/bibs.json")
-                .queryParam("title", title)
-                .build()
-                .toUriString();
 
-        ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
+        ResponseEntity<String> entity = restTemplate.getForEntity(createURL(title), String.class);
 
         if (!entity.getStatusCode().is2xxSuccessful()) {
             throw new BadRequestException("Cannot get the data from external service");
@@ -66,5 +60,15 @@ public class BookService {
 
 
         }
+    }
+
+    public String createURL(String title) {
+        String url = UriComponentsBuilder.newInstance()
+                .scheme("http")
+                .host("data.bn.org.pl/api/bibs.json")
+                .queryParam("title", title)
+                .build()
+                .toUriString();
+        return url;
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.sda.librarymanagementapp.domain.book.Book;
 import pl.sda.librarymanagementapp.model.mapper.BookMapper;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Validated
@@ -17,7 +19,7 @@ public class BookController {
     private final BookMapper bookMapper;
 
     @GetMapping("/book/{title}")
-    public BookDto getBookByTitle(@PathVariable String title) {
+    public List<BookDto> getBookByTitle(@PathVariable String title) {
         return bookService.findBookByTitle(title);
 
     }
