@@ -1,7 +1,9 @@
 package pl.sda.librarymanagementapp.model.book;
 
+
 import lombok.Data;
-    @Data
+
+@Data
     public class SingleBook{
 
         private String title;
@@ -9,5 +11,5 @@ import lombok.Data;
         private String publisher;
         private String placeOfPublication;
         private String publicationYear;
-        private String isbn;
+        private String isbnIssn;
     }

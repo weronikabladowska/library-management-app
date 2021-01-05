@@ -17,5 +17,5 @@ public class BookDto {
     private String publisher;
     private String publicationYear;
     private String placeOfPublication;
-    private String isbn;
+    private String isbnIssn;
 }

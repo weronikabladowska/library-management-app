@@ -2,6 +2,8 @@ package pl.sda.librarymanagementapp.book;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -12,7 +14,8 @@ import pl.sda.librarymanagementapp.domain.book.Book;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
+@SpringBootTest
+@AutoConfigureMockMvc
 public class BookServiceIntegrationTest {
 
     @Autowired
@@ -22,9 +25,7 @@ public class BookServiceIntegrationTest {
     void findBookByTitle_returnsDetailsOfBook() throws Exception {
 
         //given
-        Book book = new Book();
-        book.setTitle("hobbit");
-        MockHttpServletRequestBuilder request = get("/book/" + book.getTitle());
+        MockHttpServletRequestBuilder request = get("/book/hobbit").contentType(MediaType.APPLICATION_JSON);
 
         //when
         MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
