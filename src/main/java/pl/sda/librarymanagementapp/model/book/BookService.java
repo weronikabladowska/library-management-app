@@ -2,7 +2,10 @@ package pl.sda.librarymanagementapp.model.book;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +26,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class BookService {
-
 
     private final RestTemplate restTemplate;
     private final BookMapper bookMapper;
@@ -49,7 +51,7 @@ public class BookService {
 //    /api/bibs.json?limit=20&sinceId=2
     public String createURL(String title) {
         String url = UriComponentsBuilder.newInstance()
-                .scheme("http")
+                .scheme("https")
                 .host("data.bn.org.pl/api/bibs.json")
                 .queryParam("title", title)
                 .build()

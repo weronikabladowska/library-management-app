@@ -14,10 +14,8 @@ public class BookServiceTest {
     BookRepository bookRepository;
     @InjectMocks
     BookService bookService;
-//    @Spy
-//    ObjectMapper objectMapper;
-//    @Spy
-//    RestTemplate restTemplate;
+
+
 
 
 }
