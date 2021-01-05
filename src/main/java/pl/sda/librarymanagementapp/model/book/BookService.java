@@ -3,8 +3,11 @@ package pl.sda.librarymanagementapp.model.book;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,18 +20,16 @@ import pl.sda.librarymanagementapp.model.mapper.BookMapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class BookService {
 
 
     private final RestTemplate restTemplate;
     private final BookMapper bookMapper;
-    private final BookRepository bookRepository;
-
 
     public List<BookDto> findBookByTitle(String title) {
-//todo stworzyc strone odpowiedzi
+
         ResponseEntity<BookSourceResponse> entity = restTemplate.getForEntity(createURL(title), BookSourceResponse.class);
 
         if (!entity.getStatusCode().is2xxSuccessful()) {

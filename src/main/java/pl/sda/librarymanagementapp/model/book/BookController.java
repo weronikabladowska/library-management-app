@@ -16,7 +16,6 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
-    private final BookMapper bookMapper;
 
     @GetMapping("/book/{title}")
     public List<BookDto> getBookByTitle(@PathVariable String title) {
