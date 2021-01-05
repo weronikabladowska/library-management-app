@@ -25,7 +25,22 @@ public class BookServiceIntegrationTest {
     void findBookByTitle_returnsDetailsOfBook() throws Exception {
 
         //given
-        MockHttpServletRequestBuilder request = get("/book/hobbit").contentType(MediaType.APPLICATION_JSON);
+        MockHttpServletRequestBuilder request = get("/books/title/hobbit").contentType(MediaType.APPLICATION_JSON);
+
+        //when
+        MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
+
+        //then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+
+
+    }
+
+    @Test
+    void findBookByAuthor_returnsDetailsOfBook() throws Exception {
+
+        //given
+        MockHttpServletRequestBuilder request = get("/books/author/tolkien").contentType(MediaType.APPLICATION_JSON);
 
         //when
         MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();

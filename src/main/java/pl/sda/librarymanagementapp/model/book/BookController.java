@@ -17,9 +17,13 @@ public class BookController {
 
     private final BookService bookService;
 
-    @GetMapping("/book/{title}")
+    @GetMapping("/books/title/{title}")
     public List<BookDto> getBookByTitle(@PathVariable String title) {
         return bookService.findBookByTitle(title);
+    }
 
+    @GetMapping("/books/author/{author}")
+    public List<BookDto> getBookByAuthor(@PathVariable String author) {
+        return bookService.findBookByAuthor(author);
     }
 }

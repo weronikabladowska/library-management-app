@@ -32,7 +32,24 @@ public class BookService {
 
     public List<BookDto> findBookByTitle(String title) {
 
-        ResponseEntity<BookSourceResponse> entity = restTemplate.getForEntity(createURL(title), BookSourceResponse.class);
+        ResponseEntity<BookSourceResponse> entity = restTemplate.getForEntity(createURLwithTitle(title), BookSourceResponse.class);
+
+        if (!entity.getStatusCode().is2xxSuccessful()) {
+            throw new BadRequestException("Cannot get the data from external service");
+        }
+        BookSourceResponse response = entity.getBody();
+
+        List<BookDto> books = response.getBibs()
+                .stream()
+                .map(bookMapper::toBookDto)
+                .collect(Collectors.toList());
+
+        return books;
+    }
+
+    public List<BookDto> findBookByAuthor(String author) {
+
+        ResponseEntity<BookSourceResponse> entity = restTemplate.getForEntity(createURLwithAuthor(author), BookSourceResponse.class);
 
         if (!entity.getStatusCode().is2xxSuccessful()) {
             throw new BadRequestException("Cannot get the data from external service");
@@ -49,11 +66,22 @@ public class BookService {
 
     //    data.bn.org.pl/docs/bibs
 //    /api/bibs.json?limit=20&sinceId=2
-    public String createURL(String title) {
+    public String createURLwithTitle(String title) {
         String url = UriComponentsBuilder.newInstance()
                 .scheme("https")
                 .host("data.bn.org.pl/api/bibs.json")
                 .queryParam("title", title)
+                .build()
+                .toUriString();
+        return url;
+    }
+
+
+    public String createURLwithAuthor(String author) {
+        String url = UriComponentsBuilder.newInstance()
+                .scheme("https")
+                .host("data.bn.org.pl/api/bibs.json")
+                .queryParam("author", author)
                 .build()
                 .toUriString();
         return url;
