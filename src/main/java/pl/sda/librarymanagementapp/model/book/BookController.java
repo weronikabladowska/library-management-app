@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sda.librarymanagementapp.domain.book.Book;
+import pl.sda.librarymanagementapp.exception.BadRequestException;
 import pl.sda.librarymanagementapp.model.mapper.BookMapper;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -46,9 +47,10 @@ public class BookController {
         int pageSize = size.orElse(5);
 
         Page<BookDto> bookPage = bookService.findPaginatedbyAuthor(PageRequest.of(currentPage - 1, pageSize), author);
-
         return bookPage;
+
     }
+
 
     @GetMapping("/booksPage/title/{title}")
     public Page<BookDto> getPaginatedBooksbyTitle(
