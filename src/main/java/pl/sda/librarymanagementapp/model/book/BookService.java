@@ -1,29 +1,13 @@
 package pl.sda.librarymanagementapp.model.book;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.sda.librarymanagementapp.domain.book.Book;
 import pl.sda.librarymanagementapp.exception.BadRequestException;
-import pl.sda.librarymanagementapp.exception.DatabaseSavingErrorException;
-import pl.sda.librarymanagementapp.exception.NotFoundException;
 import pl.sda.librarymanagementapp.model.mapper.BookMapper;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +20,7 @@ public class BookService {
 
     public List<BookDto> findBookByTitle(String title) {
 
-        ResponseEntity<BookSourceResponse> entity = restTemplate.getForEntity(createURLwithTitle(title), BookSourceResponse.class);
+        ResponseEntity<BookSourceResponse> entity= fetchResults(createURLwithTitle(title));
 
         if (!entity.getStatusCode().is2xxSuccessful()) {
             throw new BadRequestException("Cannot get the data from external service");
@@ -44,43 +28,31 @@ public class BookService {
 
         BookSourceResponse response = entity.getBody();
 
-        List<BookDto> books = response.getBibs()
-                .stream()
-                .map(bookMapper::toBookDto)
-                .collect(Collectors.toList());
+        List<BookDto> books = addAllBooksFromResponse(response);
 
-        while(!response.getNextPage().isBlank()) {
-            entity = restTemplate.getForEntity(response.getNextPage(), BookSourceResponse.class);
-            response = entity.getBody();
-            books.addAll(response.getBibs()
-                    .stream()
-                    .map(bookMapper::toBookDto)
-                    .collect(Collectors.toList()));
+        while (!response.getNextPage().isBlank()) {
+            fetchResults(response.getNextPage());
+            response = fetchResults(response.getNextPage()).getBody();
+            books.addAll(addAllBooksFromResponse(response));
         }
         return books;
     }
 
     public List<BookDto> findBookByAuthor(String author) {
 
-        ResponseEntity<BookSourceResponse> entity = restTemplate.getForEntity(createURLwithAuthor(author), BookSourceResponse.class);
+        ResponseEntity<BookSourceResponse> entity = fetchResults(createURLwithAuthor(author));
 
         if (!entity.getStatusCode().is2xxSuccessful()) {
             throw new BadRequestException("Cannot get the data from external service");
         }
         BookSourceResponse response = entity.getBody();
 
-        List<BookDto> books = response.getBibs()
-                .stream()
-                .map(bookMapper::toBookDto)
-                .collect(Collectors.toList());
+        List<BookDto> books = addAllBooksFromResponse(response);
 
-        while(!response.getNextPage().isBlank()) {
-            entity = restTemplate.getForEntity(response.getNextPage(), BookSourceResponse.class);
-            response = entity.getBody();
-            books.addAll(response.getBibs()
-                    .stream()
-                    .map(bookMapper::toBookDto)
-                    .collect(Collectors.toList()));
+        while (!response.getNextPage().isBlank()) {
+            fetchResults(response.getNextPage());
+            response = fetchResults(response.getNextPage()).getBody();
+            books.addAll(addAllBooksFromResponse(response));
         }
         return books;
     }
@@ -142,5 +114,21 @@ public class BookService {
                 .build()
                 .toUriString();
         return url;
+    }
+
+    public List<BookDto> addAllBooksFromResponse(BookSourceResponse bookSourceResponse) {
+
+        List<BookDto> list = bookSourceResponse.getBibs()
+                .stream()
+                .map(bookMapper::toBookDto)
+                .collect(Collectors.toList());
+        return list;
+    }
+
+
+    public ResponseEntity<BookSourceResponse> fetchResults(String url) {
+
+        ResponseEntity<BookSourceResponse> entity = restTemplate.getForEntity(url, BookSourceResponse.class);
+        return entity;
     }
 }
