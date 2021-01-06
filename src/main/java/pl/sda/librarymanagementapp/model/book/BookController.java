@@ -27,42 +27,42 @@ public class BookController {
 
     private final BookService bookService;
 
-    @GetMapping("/books/title/{title}")
-    public List<BookDto> getBookByTitle(@PathVariable String title) {
+    @GetMapping(value = "/books", params = "title")
+    public List<BookDto> getBookByTitle(@RequestParam(name = "title") String title) {
         return bookService.findBookByTitle(title);
     }
 
-    @GetMapping("/books/author/{author}")
-    public List<BookDto> getBookByAuthor(@PathVariable String author) {
+    @GetMapping(value = "/books", params = "author")
+    public List<BookDto> getBookByAuthor(@RequestParam(name = "author") String author) {
         return bookService.findBookByAuthor(author);
     }
 
-    @GetMapping("/booksPage/author/{author}")
-    public Page<BookDto> getPaginatedBooksbyAuthor(
-            @PathVariable String author,
-            @RequestParam("page") Optional<Integer> page,
-            @RequestParam("size") Optional<Integer> size) {
-
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-
-        Page<BookDto> bookPage = bookService.findPaginatedbyAuthor(PageRequest.of(currentPage - 1, pageSize), author);
-        return bookPage;
-
-    }
-
-
-    @GetMapping("/booksPage/title/{title}")
-    public Page<BookDto> getPaginatedBooksbyTitle(
-            @PathVariable String title,
-            @RequestParam("page") Optional<Integer> page,
-            @RequestParam("size") Optional<Integer> size) {
-
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-
-        Page<BookDto> bookPage = bookService.findPaginatedbyTitle(PageRequest.of(currentPage - 1, pageSize), title);
-
-        return bookPage;
-    }
+//    @GetMapping(value = "/booksPage", params = "author")
+//    public Page<BookDto> getPaginatedBooksbyAuthor(
+//            @RequestParam(name = "author") String author,
+//            @RequestParam(name = "page") Optional<Integer> page,
+//            @RequestParam(name = "size") Optional<Integer> size) {
+//
+//        int currentPage = page.orElse(1);
+//        int pageSize = size.orElse(5);
+//
+//        Page<BookDto> bookPage = bookService.findPaginatedbyAuthor(PageRequest.of(currentPage - 1, pageSize), author);
+//        return bookPage;
+//
+//    }
+//
+//
+//    @GetMapping(value = "/booksPage", params = "title")
+//    public Page<BookDto> getPaginatedBooksbyTitle(
+//            @RequestParam(name = "title") String title,
+//            @RequestParam(name = "page") Optional<Integer> page,
+//            @RequestParam(name = "size") Optional<Integer> size) {
+//
+//        int currentPage = page.orElse(1);
+//        int pageSize = size.orElse(5);
+//
+//        Page<BookDto> bookPage = bookService.findPaginatedbyTitle(PageRequest.of(currentPage - 1, pageSize), title);
+//
+//        return bookPage;
+//    }
 }

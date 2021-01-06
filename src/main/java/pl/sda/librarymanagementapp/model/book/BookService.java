@@ -41,6 +41,7 @@ public class BookService {
         if (!entity.getStatusCode().is2xxSuccessful()) {
             throw new BadRequestException("Cannot get the data from external service");
         }
+
         BookSourceResponse response = entity.getBody();
 
         List<BookDto> books = response.getBibs()
@@ -48,6 +49,14 @@ public class BookService {
                 .map(bookMapper::toBookDto)
                 .collect(Collectors.toList());
 
+        while(!response.getNextPage().isBlank()) {
+            entity = restTemplate.getForEntity(response.getNextPage(), BookSourceResponse.class);
+            response = entity.getBody();
+            books.addAll(response.getBibs()
+                    .stream()
+                    .map(bookMapper::toBookDto)
+                    .collect(Collectors.toList()));
+        }
         return books;
     }
 
@@ -65,44 +74,52 @@ public class BookService {
                 .map(bookMapper::toBookDto)
                 .collect(Collectors.toList());
 
+        while(!response.getNextPage().isBlank()) {
+            entity = restTemplate.getForEntity(response.getNextPage(), BookSourceResponse.class);
+            response = entity.getBody();
+            books.addAll(response.getBibs()
+                    .stream()
+                    .map(bookMapper::toBookDto)
+                    .collect(Collectors.toList()));
+        }
         return books;
     }
 
-    public Page<BookDto> findPaginatedbyAuthor(Pageable pageable, String author) {
-        int pageSize = pageable.getPageSize();
-        int currentPage=pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<BookDto>list;
-        List<BookDto>books = findBookByAuthor(author);
-
-        if(books.size() < startItem){
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, books.size());
-            list = books.subList(startItem, toIndex);
-        }
-        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
-
-        return bookPage;
-    }
-
-    public Page<BookDto> findPaginatedbyTitle(Pageable pageable, String title) {
-        int pageSize = pageable.getPageSize();
-        int currentPage=pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<BookDto>list;
-        List<BookDto>books = findBookByTitle(title);
-
-        if(books.size() < startItem){
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, books.size());
-            list = books.subList(startItem, toIndex);
-        }
-        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
-
-        return bookPage;
-    }
+//    public Page<BookDto> findPaginatedbyAuthor(Pageable pageable, String author) {
+//        int pageSize = pageable.getPageSize();
+//        int currentPage=pageable.getPageNumber();
+//        int startItem = currentPage * pageSize;
+//        List<BookDto>list;
+//        List<BookDto>books = findBookByAuthor(author);
+//
+//        if(books.size() < startItem){
+//            list = Collections.emptyList();
+//        } else {
+//            int toIndex = Math.min(startItem + pageSize, books.size());
+//            list = books.subList(startItem, toIndex);
+//        }
+//        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
+//
+//        return bookPage;
+//    }
+//
+//    public Page<BookDto> findPaginatedbyTitle(Pageable pageable, String title) {
+//        int pageSize = pageable.getPageSize();
+//        int currentPage=pageable.getPageNumber();
+//        int startItem = currentPage * pageSize;
+//        List<BookDto>list;
+//        List<BookDto>books = findBookByTitle(title);
+//
+//        if(books.size() < startItem){
+//            list = Collections.emptyList();
+//        } else {
+//            int toIndex = Math.min(startItem + pageSize, books.size());
+//            list = books.subList(startItem, toIndex);
+//        }
+//        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
+//
+//        return bookPage;
+//    }
 
     //    data.bn.org.pl/docs/bibs
 //    /api/bibs.json?limit=20&sinceId=2
