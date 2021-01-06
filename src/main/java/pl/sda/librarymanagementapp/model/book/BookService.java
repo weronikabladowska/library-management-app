@@ -7,8 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +23,7 @@ import pl.sda.librarymanagementapp.exception.DatabaseSavingErrorException;
 import pl.sda.librarymanagementapp.exception.NotFoundException;
 import pl.sda.librarymanagementapp.model.mapper.BookMapper;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +66,42 @@ public class BookService {
                 .collect(Collectors.toList());
 
         return books;
+    }
+
+    public Page<BookDto> findPaginatedbyAuthor(Pageable pageable, String author) {
+        int pageSize = pageable.getPageSize();
+        int currentPage=pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<BookDto>list;
+        List<BookDto>books = findBookByAuthor(author);
+
+        if(books.size() < startItem){
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, books.size());
+            list = books.subList(startItem, toIndex);
+        }
+        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
+
+        return bookPage;
+    }
+
+    public Page<BookDto> findPaginatedbyTitle(Pageable pageable, String title) {
+        int pageSize = pageable.getPageSize();
+        int currentPage=pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<BookDto>list;
+        List<BookDto>books = findBookByTitle(title);
+
+        if(books.size() < startItem){
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, books.size());
+            list = books.subList(startItem, toIndex);
+        }
+        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
+
+        return bookPage;
     }
 
     //    data.bn.org.pl/docs/bibs
