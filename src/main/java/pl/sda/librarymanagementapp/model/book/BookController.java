@@ -37,32 +37,32 @@ public class BookController {
         return bookService.findBookByAuthor(author);
     }
 
-//    @GetMapping(value = "/booksPage", params = "author")
-//    public Page<BookDto> getPaginatedBooksbyAuthor(
-//            @RequestParam(name = "author") String author,
-//            @RequestParam(name = "page") Optional<Integer> page,
-//            @RequestParam(name = "size") Optional<Integer> size) {
-//
-//        int currentPage = page.orElse(1);
-//        int pageSize = size.orElse(5);
-//
-//        Page<BookDto> bookPage = bookService.findPaginatedbyAuthor(PageRequest.of(currentPage - 1, pageSize), author);
-//        return bookPage;
-//
-//    }
-//
-//
-//    @GetMapping(value = "/booksPage", params = "title")
-//    public Page<BookDto> getPaginatedBooksbyTitle(
-//            @RequestParam(name = "title") String title,
-//            @RequestParam(name = "page") Optional<Integer> page,
-//            @RequestParam(name = "size") Optional<Integer> size) {
-//
-//        int currentPage = page.orElse(1);
-//        int pageSize = size.orElse(5);
-//
-//        Page<BookDto> bookPage = bookService.findPaginatedbyTitle(PageRequest.of(currentPage - 1, pageSize), title);
-//
-//        return bookPage;
-//    }
+    @GetMapping(value = "/booksPage", params = "author")
+    public Page<BookDto> getPaginatedBooksbyAuthor(
+            @RequestParam(name = "author") String author,
+            @RequestParam(name = "page") Optional<Integer> page,
+            @RequestParam(name = "size") Optional<Integer> size) {
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<BookDto> bookPage = bookService.findPaginatedbyAuthor(PageRequest.of(currentPage - 1, pageSize), author);
+        return bookPage;
+
+    }
+
+
+    @GetMapping(value = "/booksPage", params = "title")
+    public Page<BookDto> getPaginatedBooksbyTitle(
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "page") Optional<Integer> page,
+            @RequestParam(name = "size") Optional<Integer> size) {
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<BookDto> bookPage = bookService.findPaginatedbyTitle(PageRequest.of(currentPage - 1, pageSize), title);
+
+        return bookPage;
+    }
 }

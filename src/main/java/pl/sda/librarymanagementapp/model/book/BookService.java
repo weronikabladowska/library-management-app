@@ -1,6 +1,10 @@
 package pl.sda.librarymanagementapp.model.book;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -8,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pl.sda.librarymanagementapp.exception.BadRequestException;
 import pl.sda.librarymanagementapp.model.mapper.BookMapper;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,41 +62,41 @@ public class BookService {
         return books;
     }
 
-//    public Page<BookDto> findPaginatedbyAuthor(Pageable pageable, String author) {
-//        int pageSize = pageable.getPageSize();
-//        int currentPage=pageable.getPageNumber();
-//        int startItem = currentPage * pageSize;
-//        List<BookDto>list;
-//        List<BookDto>books = findBookByAuthor(author);
+    public Page<BookDto> findPaginatedbyAuthor(Pageable pageable, String author) {
+        int pageSize = pageable.getPageSize();
+        int currentPage=pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<BookDto>list;
+        List<BookDto>books = findBookByAuthor(author);
+
+        if(books.size() < startItem){
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, books.size());
+            list = books.subList(startItem, toIndex);
+        }
+        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
+
+        return bookPage;
+    }
 //
-//        if(books.size() < startItem){
-//            list = Collections.emptyList();
-//        } else {
-//            int toIndex = Math.min(startItem + pageSize, books.size());
-//            list = books.subList(startItem, toIndex);
-//        }
-//        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
-//
-//        return bookPage;
-//    }
-//
-//    public Page<BookDto> findPaginatedbyTitle(Pageable pageable, String title) {
-//        int pageSize = pageable.getPageSize();
-//        int currentPage=pageable.getPageNumber();
-//        int startItem = currentPage * pageSize;
-//        List<BookDto>list;
-//        List<BookDto>books = findBookByTitle(title);
-//
-//        if(books.size() < startItem){
-//            list = Collections.emptyList();
-//        } else {
-//            int toIndex = Math.min(startItem + pageSize, books.size());
-//            list = books.subList(startItem, toIndex);
-//        }
-//        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
-//
-//        return bookPage;
-//    }
+    public Page<BookDto> findPaginatedbyTitle(Pageable pageable, String title) {
+        int pageSize = pageable.getPageSize();
+        int currentPage=pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<BookDto>list;
+        List<BookDto>books = findBookByTitle(title);
+
+        if(books.size() < startItem){
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, books.size());
+            list = books.subList(startItem, toIndex);
+        }
+        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
+
+        return bookPage;
+    }
 
     //    data.bn.org.pl/docs/bibs
 //    /api/bibs.json?limit=20&sinceId=2
