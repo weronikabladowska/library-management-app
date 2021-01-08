@@ -22,118 +22,106 @@ public class BookService {
 
     private final RestTemplate restTemplate;
     private final BookMapper bookMapper;
+    private final String scheme = "https";
+    private final String host = "data.bn.org.pl/api/bibs.json";
+    private final String queryTitle = "title";
+    private final String queryAuthor = "author";
 
     public List<BookDto> findBookByTitle(String title) {
-
-        ResponseEntity<BookSourceResponse> entity= fetchResults(createURLwithTitle(title));
-
-        if (!entity.getStatusCode().is2xxSuccessful()) {
-            throw new BadRequestException("Cannot get the data from external service");
-        }
-
-        BookSourceResponse response = entity.getBody();
-
-        List<BookDto> books = addAllBooksFromResponse(response);
-
-        while (!response.getNextPage().isBlank()) {
-            fetchResults(response.getNextPage());
-            response = fetchResults(response.getNextPage()).getBody();
-            books.addAll(addAllBooksFromResponse(response));
-        }
-        return books;
+        ResponseEntity<BookSourceResponse> entity = fetchResults(createURLWithTitle(title));
+        return createBooksList(entity);
     }
 
     public List<BookDto> findBookByAuthor(String author) {
-
-        ResponseEntity<BookSourceResponse> entity = fetchResults(createURLwithAuthor(author));
-
-        if (!entity.getStatusCode().is2xxSuccessful()) {
-            throw new BadRequestException("Cannot get the data from external service");
-        }
-        BookSourceResponse response = entity.getBody();
-
-        List<BookDto> books = addAllBooksFromResponse(response);
-
-        while (!response.getNextPage().isBlank()) {
-            fetchResults(response.getNextPage());
-            response = fetchResults(response.getNextPage()).getBody();
-            books.addAll(addAllBooksFromResponse(response));
-        }
-        return books;
+        ResponseEntity<BookSourceResponse> entity = fetchResults(createURLWithAuthor(author));
+        return createBooksList(entity);
     }
 
-    public Page<BookDto> findPaginatedbyAuthor(Pageable pageable, String author) {
+    public Page<BookDto> findPaginatedByAuthor(Pageable pageable, String author) {
         int pageSize = pageable.getPageSize();
-        int currentPage=pageable.getPageNumber();
+        int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
-        List<BookDto>list;
-        List<BookDto>books = findBookByAuthor(author);
+        List<BookDto> list;
+        List<BookDto> books = findBookByAuthor(author);
 
-        if(books.size() < startItem){
+        if (books.size() < startItem) {
             list = Collections.emptyList();
         } else {
             int toIndex = Math.min(startItem + pageSize, books.size());
             list = books.subList(startItem, toIndex);
         }
-        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
-
-        return bookPage;
+        return new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
     }
-//
-    public Page<BookDto> findPaginatedbyTitle(Pageable pageable, String title) {
-        int pageSize = pageable.getPageSize();
-        int currentPage=pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<BookDto>list;
-        List<BookDto>books = findBookByTitle(title);
 
-        if(books.size() < startItem){
+    //
+    public Page<BookDto> findPaginatedByTitle(Pageable pageable, String title) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<BookDto> list;
+        List<BookDto> books = findBookByTitle(title);
+
+        if (books.size() < startItem) {
             list = Collections.emptyList();
         } else {
             int toIndex = Math.min(startItem + pageSize, books.size());
             list = books.subList(startItem, toIndex);
         }
-        Page<BookDto>bookPage = new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
-
-        return bookPage;
+        return new PageImpl<BookDto>(list, PageRequest.of(currentPage, pageSize), books.size());
     }
 
     //    data.bn.org.pl/docs/bibs
 //    /api/bibs.json?limit=20&sinceId=2
-    public String createURLwithTitle(String title) {
+    public String createURLWithTitle(String title) {
         String url = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("data.bn.org.pl/api/bibs.json")
-                .queryParam("title", title)
+                .scheme(scheme)
+                .host(host)
+                .queryParam(queryTitle, title)
                 .build()
                 .toUriString();
         return url;
     }
 
 
-    public String createURLwithAuthor(String author) {
+    public String createURLWithAuthor(String author) {
         String url = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("data.bn.org.pl/api/bibs.json")
-                .queryParam("author", author)
+                .scheme(scheme)
+                .host(host)
+                .queryParam(queryAuthor, author)
                 .build()
                 .toUriString();
         return url;
     }
 
     public List<BookDto> addAllBooksFromResponse(BookSourceResponse bookSourceResponse) {
-
-        List<BookDto> list = bookSourceResponse.getBibs()
+        return bookSourceResponse.getBibs()
                 .stream()
                 .map(bookMapper::toBookDto)
                 .collect(Collectors.toList());
-        return list;
     }
 
 
     public ResponseEntity<BookSourceResponse> fetchResults(String url) {
+        return restTemplate.getForEntity(url, BookSourceResponse.class);
+            }
 
-        ResponseEntity<BookSourceResponse> entity = restTemplate.getForEntity(url, BookSourceResponse.class);
-        return entity;
+    List<BookDto> createBooksList(ResponseEntity<BookSourceResponse> entity) {
+        if (!entity.getStatusCode().is2xxSuccessful()) {
+            throw new BadRequestException("Error in getting the data from external service");
+        }
+        BookSourceResponse response = entity.getBody();
+
+        if (response != null) {
+            List<BookDto> books = addAllBooksFromResponse(response);
+
+            while (!response.getNextPage().isBlank()) {
+                fetchResults(response.getNextPage());
+                response = fetchResults(response.getNextPage()).getBody();
+                books.addAll(addAllBooksFromResponse(response));
+            }
+            return books;
+        } else {
+            throw new BadRequestException("Cannot find the book in the database.");
+        }
     }
 }
