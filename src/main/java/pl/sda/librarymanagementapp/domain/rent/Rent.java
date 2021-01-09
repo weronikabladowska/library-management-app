@@ -33,6 +33,7 @@ public class Rent {
 
     @JsonIgnore
     @ManyToMany
+    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     List<Book> booksList;
 

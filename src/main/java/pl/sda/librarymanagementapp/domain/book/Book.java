@@ -18,11 +18,22 @@ public class Book {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "author")
     private String author;
+
+    @Column(name = "publisher")
     private String publisher;
+
+    @Column(name = "publicationYear")
     private String publicationYear;
+
+    @Column(name = "placeofPublication")
     private String placeOfPublication;
+
+    @Column(name = "isbn")
     private String isbn;
 
     @ManyToOne
