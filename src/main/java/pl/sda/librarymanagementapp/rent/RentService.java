@@ -58,6 +58,7 @@ public class RentService {
     }
 
     public Rent createRent(@NotNull Book book, @NotNull LibraryUser libraryUser) {
+
         Rent.RentBuilder builder = Rent.builder()
                 .borrowedBook(book)
                 .libraryUser(libraryUser)
