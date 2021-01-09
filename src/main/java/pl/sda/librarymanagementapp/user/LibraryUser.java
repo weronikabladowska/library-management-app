@@ -19,32 +19,28 @@ public class LibraryUser {
     @Id
     @GeneratedValue
     private Long id;
-    @Column (name="firstName")
+    @Column(name = "firstName")
     private String firstName;
-    @Column (name="lastName")
+    @Column(name = "lastName")
     private String lastName;
-    @Column (name="year")
+    @Column(name = "year")
     private Integer year;
-    @Column (name="password")
+    @Column(name = "password")
     private String password;
-    @Column (name="email")
+    @Column(name = "email")
     private String email;
-    @Column (name="tel")
+    @Column(name = "tel")
     private Long tel;
-    @Column (name="role")
+    @Column(name = "role")
     private Role role;
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "readersList")
-    @EqualsAndHashCode.Exclude
-    List<Rent> rents;
 
     @JsonIgnore
     @ManyToOne
 //    @JoinColumn(name = "user_id")
     private Address userAddress;
 
-
+    @OneToMany(mappedBy = "libraryUser")
+    List<Rent> rent;
 
 
 }

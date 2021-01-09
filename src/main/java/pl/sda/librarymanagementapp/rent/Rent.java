@@ -2,16 +2,14 @@ package pl.sda.librarymanagementapp.rent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.stereotype.Component;
 import pl.sda.librarymanagementapp.book.Book;
 import pl.sda.librarymanagementapp.user.LibraryUser;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-
+@Component
 @Entity
 @Data
 @NoArgsConstructor
@@ -27,21 +25,17 @@ public class Rent {
     private LocalDate returnDate;
 
     @JsonIgnore
-    @ManyToMany
-    @EqualsAndHashCode.Exclude
-    List<LibraryUser> readersList;
+    @ManyToOne
+    private Book borrowedBook;
 
     @JsonIgnore
-    @ManyToMany
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    List<Book> booksList;
+    @ManyToOne
+    private LibraryUser libraryUser;
 
     String name;
 
+    private boolean isBorrowed;
 
 
-//    @OneToOne
-//    Reservation reservation;
 
 }

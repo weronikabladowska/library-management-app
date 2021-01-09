@@ -3,11 +3,14 @@ package pl.sda.librarymanagementapp.book;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
+import pl.sda.librarymanagementapp.rent.Rent;
 import pl.sda.librarymanagementapp.user.LibraryUser;
 
 
 import javax.persistence.*;
-
+import java.util.List;
+@Component
 @Entity(name = "books")
 @AllArgsConstructor
 @Data
@@ -36,8 +39,8 @@ public class Book {
     @Column(name = "isbn")
     private String isbn;
 
-    @ManyToOne
-    private LibraryUser libraryUser;
+    @OneToMany(mappedBy = "borrowedBook")
+    List<Rent> rents;
 
 
 }

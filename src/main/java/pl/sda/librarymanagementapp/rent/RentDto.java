@@ -4,6 +4,8 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.sda.librarymanagementapp.book.Book;
+import pl.sda.librarymanagementapp.user.LibraryUser;
 
 import java.time.LocalDate;
 
@@ -17,4 +19,10 @@ public class RentDto {
     private LocalDate borrowDate;
     @NotNull
     private LocalDate returnDate;
+    @NotNull
+    private Book borrowedBook;
+    @NotNull
+    private LibraryUser libraryUser;
+    @NotNull
+    private boolean isBorrowed;
 }
