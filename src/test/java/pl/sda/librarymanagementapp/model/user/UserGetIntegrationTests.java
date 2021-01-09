@@ -51,14 +51,14 @@ public class UserGetIntegrationTests {
         MockHttpServletResponse response = result.getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         String responseBody = response.getContentAsString();
-        UserDTO userDTOFromResponse = objectMapper.readValue(responseBody, UserDTO.class);
-        assertThat(userDTOFromResponse).isNotNull();
-        assertThat(userDTOFromResponse.getEmail()).isEqualTo(user.getEmail());
-        assertThat(userDTOFromResponse.getFirstName()).isEqualTo(user.getFirstName());
-        assertThat(userDTOFromResponse.getLastName()).isEqualTo(user.getLastName());
-        assertThat(userDTOFromResponse.getRole()).isEqualTo(user.getRole());
-        assertThat(userDTOFromResponse.getTel()).isEqualTo(user.getTel());
-        assertThat(userDTOFromResponse.getYear()).isEqualTo(user.getYear());
+        UserDto userDtoFromResponse = objectMapper.readValue(responseBody, UserDto.class);
+        assertThat(userDtoFromResponse).isNotNull();
+        assertThat(userDtoFromResponse.getEmail()).isEqualTo(user.getEmail());
+        assertThat(userDtoFromResponse.getFirstName()).isEqualTo(user.getFirstName());
+        assertThat(userDtoFromResponse.getLastName()).isEqualTo(user.getLastName());
+        assertThat(userDtoFromResponse.getRole()).isEqualTo(user.getRole());
+        assertThat(userDtoFromResponse.getTel()).isEqualTo(user.getTel());
+        assertThat(userDtoFromResponse.getYear()).isEqualTo(user.getYear());
     }
 
 //    @Test

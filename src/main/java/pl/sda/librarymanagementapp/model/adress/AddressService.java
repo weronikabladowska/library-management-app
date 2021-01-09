@@ -21,24 +21,24 @@ public class AddressService {
     private final AdressMapper adressMapper;
     private final AdressRepository adressRepository;
 
-    public AddressDTO findAdressById (Long id){
+    public AddressDto findAdressById (Long id){
         return adressMapper.adressToAdrresDTO(adressRepository.findById(id).orElseThrow());
     }
 
-    public List<AddressDTO> findAdressByStreet (String street) {
+    public List<AddressDto> findAdressByStreet (String street) {
         return adressRepository.findAdressByStreet(street)
                 .stream()
                 .map(adressMapper::adressToAdrresDTO)
                 .collect(Collectors.toList());
     }
 
-    public Page<AddressDTO> getPageOfAdresses (Integer pageNum, Integer pageSize){
+    public Page<AddressDto> getPageOfAdresses (Integer pageNum, Integer pageSize){
       return   adressRepository
               .findAll(PageRequest.of(pageNum, pageSize))
               .map(adressMapper::adressToAdrresDTO);
     }
 
-    public AddressDTO creatAddress (@NotNull Address address) {
+    public AddressDto creatAddress (@NotNull Address address) {
         if (address.getCity().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwą miasta nie może być puste");
         }

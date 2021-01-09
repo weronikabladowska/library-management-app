@@ -31,7 +31,7 @@ public class UserCreateIntegrationTest {
     void createNewUser_getStatus201() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("Marta", "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER);
+        UserDto userDTO = new UserDto("Marta", "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder request = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -49,7 +49,7 @@ public class UserCreateIntegrationTest {
     void createNewUser_whenYearIsNull_getStatus201() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("Marta", "Nowak", null, "meil@gmail.com", 589745632L, Role.USER);
+        UserDto userDTO = new UserDto("Marta", "Nowak", null, "meil@gmail.com", 589745632L, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder request = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -66,7 +66,7 @@ public class UserCreateIntegrationTest {
     void createNewUser_whenPhoneNumberIsNull_getStatus201() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("Marta", "Nowak", 1999, "meil@gmail.com", null, Role.USER);
+        UserDto userDTO = new UserDto("Marta", "Nowak", 1999, "meil@gmail.com", null, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder request = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -84,7 +84,7 @@ public class UserCreateIntegrationTest {
     void createUser_whenNameIsEmpty_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("", "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER);
+        UserDto userDTO = new UserDto("", "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -101,7 +101,7 @@ public class UserCreateIntegrationTest {
     void createUser_whenNameIsBlank_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("   ", "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER);
+        UserDto userDTO = new UserDto("   ", "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -118,7 +118,7 @@ public class UserCreateIntegrationTest {
     void createUser_whenLastNameIsEmpty_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("Kasia", "", 1999, "meil@gmail.com", 589745632L, Role.USER);
+        UserDto userDTO = new UserDto("Kasia", "", 1999, "meil@gmail.com", 589745632L, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -135,7 +135,7 @@ public class UserCreateIntegrationTest {
     void createUser_whenLastNameIsBlank_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("Zocha", "   ", 1999, "meil@gmail.com", 589745632L, Role.USER);
+        UserDto userDTO = new UserDto("Zocha", "   ", 1999, "meil@gmail.com", 589745632L, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -152,7 +152,7 @@ public class UserCreateIntegrationTest {
     void createUser_whenEmailIsEmpty_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("Tomek", "Nowak", 1999, "", 589745632L, Role.USER);
+        UserDto userDTO = new UserDto("Tomek", "Nowak", 1999, "", 589745632L, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -169,7 +169,7 @@ public class UserCreateIntegrationTest {
     void createUser_whenEmailIsBlank_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("Franek", "Nowak", 1999, "    ", 589745632L, Role.USER);
+        UserDto userDTO = new UserDto("Franek", "Nowak", 1999, "    ", 589745632L, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -186,7 +186,7 @@ public class UserCreateIntegrationTest {
     void createUser_whenRoleIsEmpty_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("Dawid", "Nowak", 1999, "meil@gmail.com", 589745632L, null);
+        UserDto userDTO = new UserDto("Dawid", "Nowak", 1999, "meil@gmail.com", 589745632L, null);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -203,7 +203,7 @@ public class UserCreateIntegrationTest {
     void createUser_whenEmailIsNull_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDTO userDTO = new UserDTO("Dawid", "Nowak", 1999, null, 589745632L, Role.USER);
+        UserDto userDTO = new UserDto("Dawid", "Nowak", 1999, null, 589745632L, Role.USER);
         String requestBody = objectMapper.writeValueAsString(userDTO);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)

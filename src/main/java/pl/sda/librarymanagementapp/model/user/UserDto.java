@@ -9,7 +9,7 @@ import pl.sda.librarymanagementapp.domain.user.Role;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserDto {
 
     @NotNull
     private String firstName;

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressDTO {
+public class AddressDto {
 
     @NotNull
     private Long id;

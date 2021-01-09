@@ -22,27 +22,27 @@ public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
 
-    public UserDTO findUserById(Long id) {
+    public UserDto findUserById(Long id) {
         final Library_user user = userRepository.findById(id).orElseThrow();
         return userMapper.userToUserDTO(user);
     }
 
-    public List<UserDTO> findUserByLastName(String lastName) {
+    public List<UserDto> findUserByLastName(String lastName) {
         return userRepository.findLibrary_userByLastName(lastName)
                 .stream()
                 .map(userMapper::userToUserDTO)
                 .collect(Collectors.toList());
     }
 
-    public UserDTO findUserByEmail(String email) {
+    public UserDto findUserByEmail(String email) {
         return userMapper.userToUserDTO(userRepository.findLibrary_userByEmail(email));
     }
 
-    public UserDTO findUserByTelNumber(Long number) {
+    public UserDto findUserByTelNumber(Long number) {
         return userMapper.userToUserDTO(userRepository.findLibrary_userByTel(number));
     }
 
-    public UserDTO createUser(@NotNull Library_user user) {
+    public UserDto createUser(@NotNull Library_user user) {
 
         if (user.getFirstName().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwą nie może być puste");
@@ -66,12 +66,12 @@ public class UserService {
 //        return userMapper.userToUserDTO(user);
 //    }
 
-    public Page<UserDTO> getPageOfUsers(Integer pageNum, Integer pageSize) {
+    public Page<UserDto> getPageOfUsers(Integer pageNum, Integer pageSize) {
         final Page<Library_user> page = userRepository.findAll(PageRequest.of(pageNum, pageSize));
         return page.map(userMapper::userToUserDTO);
     }
 
-    public Page<UserDTO> getPageOfUsers(Integer pageNum, Integer pageSize, String sortBy) {
+    public Page<UserDto> getPageOfUsers(Integer pageNum, Integer pageSize, String sortBy) {
         final Page<Library_user> page = userRepository.findAll(PageRequest.of(pageNum, pageSize));
         Sort.by(sortBy).descending();
         return page.map(userMapper::userToUserDTO);

@@ -2,12 +2,12 @@ package pl.sda.librarymanagementapp.model.mapper;
 
 import org.mapstruct.Mapper;
 import pl.sda.librarymanagementapp.domain.user.Address;
-import pl.sda.librarymanagementapp.model.adress.AddressDTO;
+import pl.sda.librarymanagementapp.model.adress.AddressDto;
 
 @Mapper
 public interface AdressMapper {
 
-    Address adressDTOToAdrres(AddressDTO addressDTO);
+    Address adressDTOToAdrres(AddressDto addressDTO);
 
-    AddressDTO adressToAdrresDTO(Address address);
+    AddressDto adressToAdrresDTO(Address address);
 }

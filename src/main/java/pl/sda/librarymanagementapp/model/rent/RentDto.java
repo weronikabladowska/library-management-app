@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RentDTO {
+public class RentDto {
     @NotNull
     Long id;
     @NotNull
