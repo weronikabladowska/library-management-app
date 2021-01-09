@@ -28,7 +28,7 @@ public class Address {
 
     @JsonIgnore
     @OneToMany (mappedBy = "userAddress")
-    private List<LibraryUser> libraryusers;
+    private List<LibraryUser> libraryUsers;
 
 
 }

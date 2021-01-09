@@ -36,7 +36,7 @@ public class AddressService {
               .map(addressMapper::addressToAddressDto);
     }
 
-    public AddressDto creatAddress (@NotNull Address address) {
+    public AddressDto createAddress(@NotNull Address address) {
         if (address.getCity().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwą miasta nie może być puste");
         }

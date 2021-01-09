@@ -35,7 +35,7 @@ public class AdressController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AddressDto createAddresss (@RequestBody Address address) {
-        return addressService.creatAddress(address);
+        return addressService.createAddress(address);
     }
 
 }

@@ -36,7 +36,6 @@ public class LibraryUser {
 
     @JsonIgnore
     @ManyToOne
-//    @JoinColumn(name = "user_id")
     private Address userAddress;
 
     @OneToMany(mappedBy = "libraryUser")
