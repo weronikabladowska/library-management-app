@@ -9,7 +9,6 @@ import pl.sda.librarymanagementapp.user.LibraryUser;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-@Component
 @Entity
 @Data
 @NoArgsConstructor
