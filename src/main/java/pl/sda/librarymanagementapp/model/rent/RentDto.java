@@ -1,25 +1,20 @@
-package pl.sda.librarymanagementapp.domain;
+package pl.sda.librarymanagementapp.model.rent;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity(name = "rents")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Rent {
-
-    @Id
-    @GeneratedValue
+public class RentDto {
+    @NotNull
     Long id;
-
+    @NotNull
     private LocalDate borrowDate;
-
-//    @OneToOne
-//    Reservation reservation;
-
+    @NotNull
+    private LocalDate returnDate;
 }
