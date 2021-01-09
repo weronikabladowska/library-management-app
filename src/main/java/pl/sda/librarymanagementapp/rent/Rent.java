@@ -37,6 +37,8 @@ public class Rent {
     @EqualsAndHashCode.Exclude
     List<Book> booksList;
 
+    String name;
+
 
 
 //    @OneToOne
