@@ -5,9 +5,9 @@ import pl.sda.librarymanagementapp.domain.user.Address;
 import pl.sda.librarymanagementapp.model.adress.AddressDto;
 
 @Mapper
-public interface AdressMapper {
+public interface AddressMapper {
 
-    Address adressDTOToAdrres(AddressDto addressDTO);
+    Address addressDtoToAddress(AddressDto addressDTO);
 
-    AddressDto adressToAdrresDTO(Address address);
+    AddressDto addressToAddressDto(Address address);
 }

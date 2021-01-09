@@ -24,22 +24,22 @@ public class UserService {
 
     public UserDto findUserById(Long id) {
         final LibraryUser user = userRepository.findById(id).orElseThrow();
-        return userMapper.userToUserDTO(user);
+        return userMapper.userToUserDto(user);
     }
 
     public List<UserDto> findUserByLastName(String lastName) {
         return userRepository.findLibrary_userByLastName(lastName)
                 .stream()
-                .map(userMapper::userToUserDTO)
+                .map(userMapper::userToUserDto)
                 .collect(Collectors.toList());
     }
 
     public UserDto findUserByEmail(String email) {
-        return userMapper.userToUserDTO(userRepository.findLibrary_userByEmail(email));
+        return userMapper.userToUserDto(userRepository.findLibrary_userByEmail(email));
     }
 
     public UserDto findUserByTelNumber(Long number) {
-        return userMapper.userToUserDTO(userRepository.findLibrary_userByTel(number));
+        return userMapper.userToUserDto(userRepository.findLibrary_userByTel(number));
     }
 
     public UserDto createUser(@NotNull LibraryUser user) {
@@ -57,7 +57,7 @@ public class UserService {
             throw new BadRequestException("Pole z nazwą roli nie może być puste");
         }
 
-        return userMapper.userToUserDTO(user);
+        return userMapper.userToUserDto(user);
     }
 
 //    //    Żeby stworzyć usera trzeba znać id Adresu lub wprowadzić nowy!
@@ -68,13 +68,13 @@ public class UserService {
 
     public Page<UserDto> getPageOfUsers(Integer pageNum, Integer pageSize) {
         final Page<LibraryUser> page = userRepository.findAll(PageRequest.of(pageNum, pageSize));
-        return page.map(userMapper::userToUserDTO);
+        return page.map(userMapper::userToUserDto);
     }
 
     public Page<UserDto> getPageOfUsers(Integer pageNum, Integer pageSize, String sortBy) {
         final Page<LibraryUser> page = userRepository.findAll(PageRequest.of(pageNum, pageSize));
         Sort.by(sortBy).descending();
-        return page.map(userMapper::userToUserDTO);
+        return page.map(userMapper::userToUserDto);
     }
 
 

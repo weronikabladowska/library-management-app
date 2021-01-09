@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.librarymanagementapp.domain.user.Address;
 import pl.sda.librarymanagementapp.exceptions.BadRequestException;
-import pl.sda.librarymanagementapp.model.mapper.AdressMapper;
+import pl.sda.librarymanagementapp.model.mapper.AddressMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,24 +18,24 @@ import java.util.stream.Collectors;
 @Transactional
 public class AddressService {
 
-    private final AdressMapper adressMapper;
+    private final AddressMapper addressMapper;
     private final AdressRepository adressRepository;
 
     public AddressDto findAdressById (Long id){
-        return adressMapper.adressToAdrresDTO(adressRepository.findById(id).orElseThrow());
+        return addressMapper.addressToAddressDto(adressRepository.findById(id).orElseThrow());
     }
 
     public List<AddressDto> findAdressByStreet (String street) {
         return adressRepository.findAdressByStreet(street)
                 .stream()
-                .map(adressMapper::adressToAdrresDTO)
+                .map(addressMapper::addressToAddressDto)
                 .collect(Collectors.toList());
     }
 
     public Page<AddressDto> getPageOfAdresses (Integer pageNum, Integer pageSize){
       return   adressRepository
               .findAll(PageRequest.of(pageNum, pageSize))
-              .map(adressMapper::adressToAdrresDTO);
+              .map(addressMapper::addressToAddressDto);
     }
 
     public AddressDto creatAddress (@NotNull Address address) {
@@ -48,7 +48,7 @@ public class AddressService {
         if (address.getHouseNumber().trim().isEmpty()) {
             throw new BadRequestException("Pole z numerem domu nie może być puste");
         }
-        return adressMapper.adressToAdrresDTO(address);
+        return addressMapper.addressToAddressDto(address);
     }
 
 }

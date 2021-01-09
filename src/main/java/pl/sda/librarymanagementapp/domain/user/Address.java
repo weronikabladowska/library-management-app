@@ -16,9 +16,13 @@ public class Address {
     @Id
     @GeneratedValue
     private Long id;
+    @Column (name="city")
     private String city;
+    @Column (name="street")
     private String street;
+    @Column (name="houseNumber")
     private String houseNumber;
+    @Column (name="postCode")
     private String postCode;
 
     @JsonIgnore
