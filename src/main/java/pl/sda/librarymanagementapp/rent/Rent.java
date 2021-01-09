@@ -23,6 +23,7 @@ public class Rent {
 
     private LocalDate borrowDate;
     private LocalDate returnDate;
+    private boolean isBorrowed;
 
     @JsonIgnore
     @ManyToOne
@@ -31,11 +32,5 @@ public class Rent {
     @JsonIgnore
     @ManyToOne
     private LibraryUser libraryUser;
-
-    String name;
-
-    private boolean isBorrowed;
-
-
 
 }
