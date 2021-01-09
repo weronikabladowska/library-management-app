@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.librarymanagementapp.domain.user.Library_user;
+import pl.sda.librarymanagementapp.domain.user.libraryUser;
 import pl.sda.librarymanagementapp.exceptions.BadBoundaryException;
 import pl.sda.librarymanagementapp.model.mapper.UserMapper;
 
@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto createUser(@RequestBody Library_user user) {
+    public UserDto createUser(@RequestBody libraryUser user) {
         return userService.createUser(user);
     }
 

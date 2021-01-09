@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +24,7 @@ public class Address {
     @JsonIgnore
     @OneToMany (mappedBy = "userAddress")
 //    @JoinColumn (name = "user_id")
-    private List<Library_user> libraryusers;
+    private List<libraryUser> libraryusers;
 
 
 }

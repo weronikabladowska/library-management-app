@@ -1,16 +1,16 @@
 package pl.sda.librarymanagementapp.model.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.sda.librarymanagementapp.domain.user.Library_user;
+import pl.sda.librarymanagementapp.domain.user.libraryUser;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<Library_user, Long> {
+public interface UserRepository extends JpaRepository<libraryUser, Long> {
 
-    List<Library_user> findLibrary_userByLastName(String lastName);
+    List<libraryUser> findLibrary_userByLastName(String lastName);
 
-    Library_user findLibrary_userByEmail(String email);
+    libraryUser findLibrary_userByEmail(String email);
 
-    Library_user findLibrary_userByTel(Long telNumber);
+    libraryUser findLibrary_userByTel(Long telNumber);
 
 }
