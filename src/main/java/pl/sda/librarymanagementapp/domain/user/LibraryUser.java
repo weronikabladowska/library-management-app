@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 
-public class libraryUser {
+public class LibraryUser {
 
     @Id
     @GeneratedValue
