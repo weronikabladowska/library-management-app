@@ -12,7 +12,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import pl.sda.librarymanagementapp.domain.user.libraryUser;
+import pl.sda.librarymanagementapp.domain.user.LibraryUser;
 import pl.sda.librarymanagementapp.domain.user.Role;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +40,7 @@ public class UserGetIntegrationTests {
     void getById_getCorrectUser() throws Exception {
         //given
 
-        libraryUser user = userRepository.save(createUser());
+        LibraryUser user = userRepository.save(createUser());
         Long id = user.getId();
         MockHttpServletRequestBuilder request = get("/users/" + id)
                 .contentType(MediaType.APPLICATION_JSON);
@@ -82,8 +82,8 @@ public class UserGetIntegrationTests {
 //        assertThat(userDTO).isNotNull();
 //    }
 
-    private libraryUser createUser() {
-        return new libraryUser().builder()
+    private LibraryUser createUser() {
+        return new LibraryUser().builder()
                 .tel(562147896L)
                 .email("email@Gmail.com")
                 .firstName("Kasia")

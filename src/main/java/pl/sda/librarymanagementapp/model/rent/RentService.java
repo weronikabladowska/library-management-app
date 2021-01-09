@@ -12,7 +12,7 @@ public class RentService {
 
     private final RentMapper rentMapper;
     private final RentRepository rentRepository;
-    private final RentEntityRepository rentEntityRepository;
+//    private final RentEntityRepository rentEntityRepository;
 
     public RentDto findRentById(Long id) {
         return rentMapper.rentToRentDTO(rentRepository.findById(id).orElseThrow());
@@ -20,7 +20,8 @@ public class RentService {
 
     //ToDo : Niech Repository zwraca Optional z Rent - bo wywali NullPointera.
     public RentDto findByBookTitle(String title) {
-        return rentMapper.rentToRentDTO(rentEntityRepository.findByBookTitle(title));
+//        return rentMapper.rentToRentDTO(rentEntityRepository.find(title));
+        return null;
     }
 
 

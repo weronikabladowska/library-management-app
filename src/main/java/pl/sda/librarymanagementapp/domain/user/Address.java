@@ -24,7 +24,7 @@ public class Address {
     @JsonIgnore
     @OneToMany (mappedBy = "userAddress")
 //    @JoinColumn (name = "user_id")
-    private List<libraryUser> libraryusers;
+    private List<LibraryUser> libraryusers;
 
 
 }

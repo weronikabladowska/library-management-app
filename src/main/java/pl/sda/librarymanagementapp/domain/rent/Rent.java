@@ -3,7 +3,7 @@ package pl.sda.librarymanagementapp.domain.rent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pl.sda.librarymanagementapp.domain.book.Book;
-import pl.sda.librarymanagementapp.domain.user.libraryUser;
+import pl.sda.librarymanagementapp.domain.user.LibraryUser;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +29,7 @@ public class Rent {
     @JsonIgnore
     @ManyToMany
     @EqualsAndHashCode.Exclude
-    List<libraryUser> readersList;
+    List<LibraryUser> readersList;
 
     @JsonIgnore
     @ManyToMany
