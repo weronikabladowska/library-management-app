@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.sda.librarymanagementapp.domain.book.Book;
 
 import javax.persistence.*;
 import java.util.List;

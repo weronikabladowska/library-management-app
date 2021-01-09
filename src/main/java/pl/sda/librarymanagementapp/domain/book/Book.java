@@ -1,17 +1,19 @@
-package pl.sda.librarymanagementapp.domain;
+package pl.sda.librarymanagementapp.domain.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import pl.sda.librarymanagementapp.domain.LibraryUser;
 
 import javax.persistence.*;
 
 @Entity(name = "books")
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-
 public class Book {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -19,10 +21,12 @@ public class Book {
     private String title;
     private String author;
     private String publisher;
-    private String isbn;
     private String publicationYear;
-    private String placeofPublication;
+    private String placeOfPublication;
+    private String isbn;
 
     @ManyToOne
     private LibraryUser libraryUser;
+
+
 }
