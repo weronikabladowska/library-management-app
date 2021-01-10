@@ -4,7 +4,6 @@ import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.librarymanagementapp.exceptions.BadRequestException;
@@ -40,7 +39,7 @@ public class UserService {
         return userMapper.userToUserDto(userRepository.findLibrary_userByTel(number));
     }
 
-    public UserDto createUser(@NotNull LibraryUser user) {
+    public UserDto createUser(@NotNull UserDto user) {
 
         if (user.getFirstName().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwą nie może być puste");
@@ -54,26 +53,13 @@ public class UserService {
         if (user.getRole() == null) {
             throw new BadRequestException("Pole z nazwą roli nie może być puste");
         }
-
-        return userMapper.userToUserDto(user);
+        LibraryUser savedUser = userRepository.save(userMapper.userDtoToLibraryUser(user));
+        return userMapper.userToUserDto(savedUser);
     }
-
-//    //    Żeby stworzyć usera trzeba znać id Adresu lub wprowadzić nowy!
-//    public UserDTO createUser(Library_user user, Adress adress) {
-//        user.setUserAdress(adress);
-//        return userMapper.userToUserDTO(user);
-//    }
 
     public Page<UserDto> getPageOfUsers(Integer pageNum, Integer pageSize) {
         final Page<LibraryUser> page = userRepository.findAll(PageRequest.of(pageNum, pageSize));
         return page.map(userMapper::userToUserDto);
     }
-
-    public Page<UserDto> getPageOfUsers(Integer pageNum, Integer pageSize, String sortBy) {
-        final Page<LibraryUser> page = userRepository.findAll(PageRequest.of(pageNum, pageSize));
-        Sort.by(sortBy).descending();
-        return page.map(userMapper::userToUserDto);
-    }
-
 
 }

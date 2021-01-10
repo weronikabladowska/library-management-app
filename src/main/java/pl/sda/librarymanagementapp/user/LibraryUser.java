@@ -33,6 +33,9 @@ public class LibraryUser {
     private Long tel;
     @Column (name="role")
     private Role role;
+//    private Address address;
+
+
 
     @JsonIgnore
     @ManyToMany(mappedBy = "readersList")
@@ -41,7 +44,6 @@ public class LibraryUser {
 
     @JsonIgnore
     @ManyToOne
-//    @JoinColumn(name = "user_id")
     private Address userAddress;
 
 
