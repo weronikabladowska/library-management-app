@@ -11,30 +11,30 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/address")
-public class AdressController {
+public class AddressController {
 
     private final AddressService addressService;
 
     @GetMapping
     public Page<AddressDto> getPageOfAddreses (@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
         if (pageNum <= 0 && pageSize < 0) {
-            return addressService.getPageOfAdresses(pageNum, pageSize);
+            return addressService.getPageOfAddresses(pageNum, pageSize);
         } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
     }
 
     @GetMapping("/{id}")
     public AddressDto getAddressById(@PathVariable Long id) {
-        return addressService.findAdressById(id);
+        return addressService.findAddressById(id);
     }
 
     @GetMapping("/street/{street}")
     public List<AddressDto> findByStreet (@PathVariable String street){
-        return addressService.findAdressByStreet(street);
+        return addressService.findAddressByStreet(street);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AddressDto createAddresss (@RequestBody Address address) {
+    public AddressDto createAddress(@RequestBody Address address) {
         return addressService.createAddress(address);
     }
 

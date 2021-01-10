@@ -19,18 +19,18 @@ public class AddressService {
     private final AddressMapper addressMapper;
     private final AdressRepository adressRepository;
 
-    public AddressDto findAdressById (Long id){
+    public AddressDto findAddressById(Long id){
         return addressMapper.addressToAddressDto(adressRepository.findById(id).orElseThrow());
     }
 
-    public List<AddressDto> findAdressByStreet (String street) {
+    public List<AddressDto> findAddressByStreet(String street) {
         return adressRepository.findAdressByStreet(street)
                 .stream()
                 .map(addressMapper::addressToAddressDto)
                 .collect(Collectors.toList());
     }
 
-    public Page<AddressDto> getPageOfAdresses (Integer pageNum, Integer pageSize){
+    public Page<AddressDto> getPageOfAddresses(Integer pageNum, Integer pageSize){
       return   adressRepository
               .findAll(PageRequest.of(pageNum, pageSize))
               .map(addressMapper::addressToAddressDto);
