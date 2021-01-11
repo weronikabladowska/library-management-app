@@ -44,9 +44,7 @@ public class RentController {
     ResponseEntity<RentDto>createRent(@RequestBody RentDto rentDto){
         LibraryUser libraryUser = rentDto.getLibraryUser();
         Long bookId = rentDto.getBookId();
-
         Rent rent = rentService.createRent(bookId, libraryUser);
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(rentMapper.rentToRentDto(rent));
