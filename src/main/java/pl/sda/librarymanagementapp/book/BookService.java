@@ -25,6 +25,7 @@ public class BookService {
     private final String host = "data.bn.org.pl/api/bibs.json";
     private final String queryTitle = "title";
     private final String queryAuthor = "author";
+    private final String queryBookId = "id";
 
     public List<BookDto> findBookByTitle(String title) {
         ResponseEntity<BookSourceResponse> entity = fetchResults(createURLWithTitle(title));
@@ -33,6 +34,11 @@ public class BookService {
 
     public List<BookDto> findBookByAuthor(String author) {
         ResponseEntity<BookSourceResponse> entity = fetchResults(createURLWithAuthor(author));
+        return createBooksList(entity);
+    }
+
+    public List<BookDto> findBookById(Long id) {
+        ResponseEntity<BookSourceResponse> entity = fetchResults(createURLWithBookId(id));
         return createBooksList(entity);
     }
 
@@ -87,6 +93,16 @@ public class BookService {
                 .scheme(scheme)
                 .host(host)
                 .queryParam(queryAuthor, author)
+                .build()
+                .toUriString();
+        return url;
+    }
+
+    public String createURLWithBookId(Long id) {
+        String url = UriComponentsBuilder.newInstance()
+                .scheme(scheme)
+                .host(host)
+                .queryParam(queryBookId, id)
                 .build()
                 .toUriString();
         return url;

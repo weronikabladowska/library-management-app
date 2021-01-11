@@ -6,6 +6,5 @@ import pl.sda.librarymanagementapp.rent.RentDto;
 
 @Mapper
 public interface RentMapper {
-    Rent rentDtoToRent (RentDto rentDto);
     RentDto rentToRentDto(Rent rent);
 }

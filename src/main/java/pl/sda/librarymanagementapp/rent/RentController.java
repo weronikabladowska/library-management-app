@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.librarymanagementapp.book.Book;
 import pl.sda.librarymanagementapp.user.LibraryUser;
 
 import java.util.List;
@@ -16,9 +15,9 @@ public class RentController {
     private final RentService rentService;
     private final RentMapper rentMapper;
 
-    @GetMapping(value = "/rents", params = "book")
-    public List<RentDto> findRentsByBook(@RequestParam(name = "book") Book book) {
-        return rentService.findRentByBook(book);
+    @GetMapping(value = "/rents", params = "id")
+    public List<RentDto> findRentsByBookId(@RequestParam(name = "id") Long id) {
+        return rentService.findRentByBookId(id);
     }
 
     @GetMapping(value = "/rents", params = "libraryUser")
@@ -36,16 +35,17 @@ public class RentController {
         return rentService.findDelayedRents();
     }
 
-    @GetMapping(value = "/rents", params = "id")
-    public RentDto findRentById(Long id){
-        return rentService.findRentById(id);
+    @GetMapping(value = "/rents", params = "rentId")
+    public RentDto findRentById(@RequestParam(name = "rentId") Long rentId){
+        return rentService.findRentById(rentId);
     }
 
     @PostMapping("/rents/create")
     ResponseEntity<RentDto>createRent(@RequestBody RentDto rentDto){
         LibraryUser libraryUser = rentDto.getLibraryUser();
-        Book book = rentDto.getBorrowedBook();
-        Rent rent = rentService.createRent(book, libraryUser);
+        Long bookId = rentDto.getBookId();
+
+        Rent rent = rentService.createRent(bookId, libraryUser);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

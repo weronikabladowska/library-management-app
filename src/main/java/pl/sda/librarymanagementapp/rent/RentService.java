@@ -4,10 +4,8 @@ import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.sda.librarymanagementapp.book.Book;
-import pl.sda.librarymanagementapp.exceptions.BadRequestException;
 import pl.sda.librarymanagementapp.user.LibraryUser;
-import pl.sda.librarymanagementapp.user.UserDto;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,9 +24,9 @@ public class RentService {
         return rentMapper.rentToRentDto(rent);
     }
 
-    public List<RentDto> findRentByBook(Book book) {
+    public List<RentDto> findRentByBookId(Long bookId) {
         return rentRepository
-                .findRentByBook(book)
+                .findRentByBookId(bookId)
                 .stream()
                 .map(rentMapper::rentToRentDto)
                 .collect(Collectors.toList());
@@ -42,36 +40,37 @@ public class RentService {
                 .collect(Collectors.toList());
     }
 
-    public List<RentDto> findActiveRents(boolean isBorrowed) {
+    public List<RentDto> findActiveRents(boolean active) {
         return rentRepository
-                .findRentByBorrowedIs(isBorrowed)
+                .findRentByActive(active)
                 .stream()
                 .map(rentMapper::rentToRentDto)
                 .collect(Collectors.toList());
     }
 
     public List<RentDto> findDelayedRents() {
-        return rentRepository.findRentByBorrowedIsAndReturnDateBefore(true, LocalDate.now())
+        return rentRepository.findRentByActiveAndReturnDateBefore(true, LocalDate.now())
                 .stream()
                 .map(rentMapper::rentToRentDto)
                 .collect(Collectors.toList());
     }
 
-    public Rent createRent(@NotNull Book book, @NotNull LibraryUser libraryUser) {
+    public Rent createRent(@NotNull Long bookId, @NotNull LibraryUser libraryUser) {
 
         Rent.RentBuilder builder = Rent.builder()
-                .borrowedBook(book)
+                .bookId(bookId)
                 .libraryUser(libraryUser)
                 .borrowDate(LocalDate.now())
                 .returnDate(LocalDate.now().plusMonths(1))
-                .isBorrowed(true);
+                .active(true);
 
         Rent rent = builder.build();
         return rentRepository.save(rent);
     }
 
     public void returnBook(Rent rent){
-        rentRepository.findRentById(rent.getId()).setBorrowed(false);
+
+        rentRepository.findRentById(rent.getId()).setActive(false);
     }
 
 
