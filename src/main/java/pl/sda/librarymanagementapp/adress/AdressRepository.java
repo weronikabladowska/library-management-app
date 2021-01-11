@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface AdressRepository extends JpaRepository<Address, Long> {
 
-    List<Address> findAdressByStreet(String street);
+    List<Address> findAddressByStreet(String street);
 
 }

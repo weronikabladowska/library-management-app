@@ -24,7 +24,7 @@ public class AddressService {
     }
 
     public List<AddressDto> findAddressByStreet(String street) {
-        return adressRepository.findAdressByStreet(street)
+        return adressRepository.findAddressByStreet(street)
                 .stream()
                 .map(addressMapper::addressToAddressDto)
                 .collect(Collectors.toList());
@@ -36,7 +36,7 @@ public class AddressService {
               .map(addressMapper::addressToAddressDto);
     }
 
-    public AddressDto createAddress(@NotNull Address address) {
+    public AddressDto creatAddress (@NotNull AddressDto address) {
         if (address.getCity().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwą miasta nie może być puste");
         }
@@ -46,7 +46,8 @@ public class AddressService {
         if (address.getHouseNumber().trim().isEmpty()) {
             throw new BadRequestException("Pole z numerem domu nie może być puste");
         }
-        return addressMapper.addressToAddressDto(address);
+        Address savedAddress = adressRepository.save(addressMapper.addressDtoToAddress(address));
+        return addressMapper.addressToAddressDto(savedAddress);
     }
 
 }

@@ -14,28 +14,19 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final UserMapper userMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto createUser(@RequestBody LibraryUser user) {
+    public UserDto createUser(@RequestBody UserDto user) {
+
         return userService.createUser(user);
     }
-
-//   ToDO:// User musi posiadać adress, ale jak testować metedę z dwoma obiektami do dodania (?)
-
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public UserDTO createUser(@RequestBody Library_user user, @RequestBody Adress adress) {
-//        return userService.createUser(user, adress);
-//    }
 
     @GetMapping("/{id}")
     public UserDto getUserById(@PathVariable Long id) {
         return userService.findUserById(id);
     }
 
-//ToDo: Jak przekazać pageNum i PageSize w testach?
     @GetMapping
     public Page<UserDto> getPageOfUsers(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
         if (pageNum >= 0 && pageSize > 0) {

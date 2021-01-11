@@ -33,6 +33,9 @@ public class LibraryUser {
     private Long tel;
     @Column(name = "role")
     private Role role;
+//    private Address address;
+
+
 
     @JsonIgnore
     @ManyToOne
