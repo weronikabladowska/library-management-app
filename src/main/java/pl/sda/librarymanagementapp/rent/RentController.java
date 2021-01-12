@@ -15,6 +15,7 @@ public class RentController {
     private final RentService rentService;
     private final RentMapper rentMapper;
 
+
     @GetMapping(value = "/rents", params = "id")
     public List<RentDto> findRentsByBookId(@RequestParam(name = "id") Long id) {
         return rentService.findRentByBookId(id);
@@ -26,28 +27,33 @@ public class RentController {
     }
 
     @GetMapping(value = "/rents/active")
-    public List<RentDto> findActiveRents(){
+    public List<RentDto> findActiveRents() {
         return rentService.findActiveRents(true);
     }
 
     @GetMapping("/rents/delayed")
-    public List<RentDto> findDelayedRents(){
+    public List<RentDto> findDelayedRents() {
         return rentService.findDelayedRents();
     }
 
     @GetMapping(value = "/rents", params = "rentId")
-    public RentDto findRentById(@RequestParam(name = "rentId") Long rentId){
+    public RentDto findRentById(@RequestParam(name = "rentId") Long rentId) {
         return rentService.findRentById(rentId);
     }
 
     @PostMapping("/rents/create")
-    ResponseEntity<RentDto>createRent(@RequestBody RentDto rentDto){
-        LibraryUser libraryUser = rentDto.getLibraryUser();
+    ResponseEntity<RentDto> createRent(@RequestBody RentDto rentDto) {
+        Long userId = rentDto.getLibraryUser().getId();
         Long bookId = rentDto.getBookId();
-        Rent rent = rentService.createRent(bookId, libraryUser);
+        Rent rent = rentService.createRent(bookId, userId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(rentMapper.rentToRentDto(rent));
+    }
+
+    @PostMapping("rents/return")
+    public void returnBook(@RequestBody RentDto rentDto) {
+        rentService.returnBook(rentDto);
     }
 
 }
