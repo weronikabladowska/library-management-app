@@ -2,6 +2,8 @@ package pl.sda.librarymanagementapp.rent;
 
 import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.librarymanagementapp.book.BookService;
@@ -25,8 +27,8 @@ public class RentService {
     private final UserRepository userRepository;
     private final BookService bookService;
 
-    public RentDto findRentById(Long id) {
-        if (rentRepository.findRentById(id).equals(null)) {
+    public RentDto findRentById(@NotNull Long id) {
+        if (rentRepository.findRentById(id)==null || id==null) {
             throw new NotFoundException("Cannot find rent with ID: " + id);
         } else {
             final Rent rent = rentRepository.findRentById(id);
@@ -34,8 +36,8 @@ public class RentService {
         }
     }
 
-    public List<RentDto> findRentByBookId(Long bookId) {
-        if (rentRepository.findRentByBookId(bookId).isEmpty()) {
+    public List<RentDto> findRentByBookId(@NotNull Long bookId) {
+        if (rentRepository.findRentByBookId(bookId).isEmpty() || bookId == null) {
             throw new NotFoundException("Book with ID: " + bookId + " cannot be found");
         } else
             return rentRepository
@@ -45,8 +47,8 @@ public class RentService {
                     .collect(Collectors.toList());
     }
 
-    public List<RentDto> findRentByLibraryUserId(Long userId) {
-        if (userRepository.findById(userId).isEmpty()) {
+    public List<RentDto> findRentByLibraryUserId(@NotNull Long userId) {
+        if (userRepository.findById(userId).isEmpty() || userId==null) {
             throw new NotFoundException("Cannot find user with ID: " + userId);
         } else
             return rentRepository
@@ -73,7 +75,7 @@ public class RentService {
 
     public Rent createRent(@NotNull Long bookId, @NotNull Long userId) {
 
-        if (!userRepository.findById(userId).isPresent() || bookService.findBookById(bookId).isEmpty()) {
+        if (userRepository.findById(userId).isEmpty() || bookService.findBookById(bookId).isEmpty() || bookId == null || userId == null) {
             throw new NotFoundException("Incorrect Book or User ID");
         } else {
             LibraryUser user = userRepository.findById(userId).get();
@@ -91,6 +93,12 @@ public class RentService {
 
     public void returnBook(RentDto rentDto) {
         rentRepository.findRentById(rentDto.getId()).setActive(false);
+    }
+
+    public ResponseEntity<RentDto>toResponseEntity(Rent rent){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(rentMapper.rentToRentDto(rent));
     }
 
 

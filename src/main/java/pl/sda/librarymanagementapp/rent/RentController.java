@@ -46,9 +46,7 @@ public class RentController {
         Long userId = rentDto.getLibraryUser().getId();
         Long bookId = rentDto.getBookId();
         Rent rent = rentService.createRent(bookId, userId);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(rentMapper.rentToRentDto(rent));
+        return rentService.toResponseEntity(rent);
     }
 
     @PostMapping("rents/return")
