@@ -45,12 +45,12 @@ public class RentService {
                     .collect(Collectors.toList());
     }
 
-    public List<RentDto> findRentByLibraryUser(LibraryUser libraryUser) {
-        if (userRepository.findById(libraryUser.getId()).isEmpty()) {
-            throw new NotFoundException("Cannot find user with ID: " + libraryUser.getId());
+    public List<RentDto> findRentByLibraryUserId(Long userId) {
+        if (userRepository.findById(userId).isEmpty()) {
+            throw new NotFoundException("Cannot find user with ID: " + userId);
         } else
             return rentRepository
-                    .findRentByLibraryUser(libraryUser)
+                    .findRentByLibraryUserId(userId)
                     .stream()
                     .map(rentMapper::rentToRentDto)
                     .collect(Collectors.toList());
@@ -90,7 +90,6 @@ public class RentService {
     }
 
     public void returnBook(RentDto rentDto) {
-
         rentRepository.findRentById(rentDto.getId()).setActive(false);
     }
 

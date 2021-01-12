@@ -22,8 +22,8 @@ public class RentController {
     }
 
     @GetMapping(value = "/rents", params = "libraryUser")
-    public List<RentDto> findRentsByLibraryUser(@RequestParam(name = "libraryUser") LibraryUser libraryUser) {
-        return rentService.findRentByLibraryUser(libraryUser);
+    public List<RentDto> findRentsByLibraryUser(@RequestParam(name = "libraryUser") Long userId) {
+        return rentService.findRentByLibraryUserId(userId);
     }
 
     @GetMapping(value = "/rents/active")
