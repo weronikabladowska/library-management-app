@@ -15,13 +15,9 @@ public class RentDto {
     @NotNull
     Long id;
     @NotNull
-    private LocalDate borrowDate;
-    @NotNull
-    private LocalDate returnDate;
-    @NotNull
     private Long bookId;
     @NotNull
-    private LibraryUser libraryUser;
+    private Long libraryUserId;
     @NotNull
     private boolean active;
 }
