@@ -39,10 +39,13 @@ public class UserService {
         return userMapper.userToUserDto(userRepository.findLibrary_userByTel(number));
     }
 
-    public UserDto createUser(@NotNull UserDto user) {
+    public UserDto createUser(@NotNull LibraryUserModel user) {
 
         if (user.getFirstName().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwą nie może być puste");
+        }
+        if (user.getPassword().trim().isEmpty()) {
+            throw new BadRequestException("Pole z hasłem nie może być puste");
         }
         if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
             throw new BadRequestException("Pole z email nie może być puste");
@@ -53,7 +56,7 @@ public class UserService {
         if (user.getRole() == null) {
             throw new BadRequestException("Pole z nazwą roli nie może być puste");
         }
-        LibraryUser savedUser = userRepository.save(userMapper.userDtoToLibraryUser(user));
+        LibraryUser savedUser = userRepository.save(userMapper.userModelToUser(user));
         return userMapper.userToUserDto(savedUser);
     }
 

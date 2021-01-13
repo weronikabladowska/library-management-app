@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class LibraryUserModel {
 
     @NotNull
     private String firstName;
@@ -18,6 +18,8 @@ public class UserDto {
     @NotNull
     private String email; //email jest loginem
     private Long tel;
+    @NotNull
+    private String password;
     @NotNull
     private Role role;
 }
