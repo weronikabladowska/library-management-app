@@ -25,7 +25,7 @@ public class Rent {
     private Long bookId;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private LibraryUser libraryUser;
 
 }

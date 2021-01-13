@@ -13,11 +13,10 @@ import java.util.List;
 public class RentController {
 
     private final RentService rentService;
-    private final RentMapper rentMapper;
 
 
-    @GetMapping(value = "/rents", params = "id")
-    public List<RentDto> findRentsByBookId(@RequestParam(name = "id") Long id) {
+    @GetMapping(value = "/rents", params = "bookId")
+    public List<RentDto> findRentsByBookId(@RequestParam(name = "bookId") Long id) {
         return rentService.findRentByBookId(id);
     }
 
@@ -49,7 +48,7 @@ public class RentController {
         return rentService.toResponseEntity(rent);
     }
 
-    @PostMapping("rents/return")
+    @PutMapping("rents/return")
     public void returnBook(@RequestBody RentDto rentDto) {
         rentService.returnBook(rentDto);
     }
