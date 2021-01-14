@@ -48,7 +48,7 @@ public class RentService {
     }
 
     public List<RentDto> findRentByLibraryUserId(@NotNull Long userId) {
-        if (userRepository.findById(userId).isEmpty() || userId==null) {
+        if (rentRepository.findRentByLibraryUserId(userId).isEmpty() || userId==null) {
             throw new NotFoundException("Cannot find user with ID: " + userId);
         } else
             return rentRepository
@@ -91,8 +91,11 @@ public class RentService {
         }
     }
 
-    public void returnBook(RentDto rentDto) {
-        rentRepository.findRentById(rentDto.getId()).setActive(false);
+    public boolean returnBook(RentDto rentDto) {
+
+        Rent rent = rentRepository.findRentById(rentDto.getId());
+        rent.setActive(false);
+        return rent.isActive();
     }
 
     public ResponseEntity<RentDto>toResponseEntity(Rent rent){

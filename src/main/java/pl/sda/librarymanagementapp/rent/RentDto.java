@@ -17,7 +17,7 @@ public class RentDto {
     @NotNull
     private Long bookId;
     @NotNull
-    private Long libraryUserId;
-    @NotNull
     private boolean active;
+    @NotNull
+    private LibraryUser libraryUser;
 }

@@ -12,7 +12,6 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     Rent findRentById(Long id);
 
-    List<Rent> findRentByLibraryUser(LibraryUser libraryUser);
     List<Rent> findRentByLibraryUserId(Long userId);
 
     List<Rent> findRentByBookId(Long id);

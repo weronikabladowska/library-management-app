@@ -73,7 +73,7 @@ class RentServiceTest {
         RentDto rentDtoFromResponse = objectMapper.readValue(responseBody, RentDto.class);
 
         assertThat(rentDtoFromResponse).isNotNull();
-        assertThat(rentDtoFromResponse.getLibraryUserId()).isEqualTo(rent.getLibraryUser().getId());
+        assertThat(rentDtoFromResponse.getLibraryUser().getId()).isEqualTo(rent.getLibraryUser().getId());
         assertThat(rentDtoFromResponse.getBookId()).isEqualTo(rent.getBookId());
         assertThat(rentDtoFromResponse.getId()).isEqualTo(rent.getId());
 
@@ -118,7 +118,7 @@ class RentServiceTest {
         String responseBody = response.getContentAsString();
         List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {});
 
-        rentDtoFromResponse.forEach((rentDto -> assertThat(rentDto.getLibraryUserId()).isEqualTo(id)));
+        rentDtoFromResponse.forEach((rentDto -> assertThat(rentDto.getLibraryUser().getId()).isEqualTo(id)));
 
         //todo correct returned null
     }
@@ -165,22 +165,23 @@ class RentServiceTest {
     void createRent_returns201status() {
     }
 
-//    @Test
-//    void returnBook_makesRentInactive() throws Exception {
-//
-//        Rent rent = rentRepository.save(createRent());
-//        String requestBody = objectMapper.writeValueAsString(rent);
-//        MockHttpServletRequestBuilder request = put("/rents/return")
-//                .contentType(MediaType.APPLICATION_JSON).contentType(requestBody);
-//
-//        //when
-//        MvcResult result = mockMvc.perform(request).andExpect();
-//
-//        //then
-//        MockHttpServletResponse response = result.getResponse();
-//        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-//        assertThat(rent.isActive()).isFalse();
-//    }
+    @Test
+    void returnBook_makesRentInactive() throws Exception {
+
+        Rent rent = rentRepository.save(createRent());
+        String requestBody = objectMapper.writeValueAsString(rent);
+        MockHttpServletRequestBuilder request = patch("/rents/return")
+                .contentType(MediaType.APPLICATION_JSON).contentType(requestBody);
+
+        //when
+        MvcResult result = mockMvc.perform(request).andReturn();
+
+        //then
+        MockHttpServletResponse response = result.getResponse();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(rent.isActive()).isFalse();
+    }
+    todo - how to teat patch request
 
 
     private Rent createRent() {

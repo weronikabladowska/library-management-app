@@ -28,4 +28,5 @@ public class Rent {
     @ManyToOne(cascade = CascadeType.ALL)
     private LibraryUser libraryUser;
 
+
 }

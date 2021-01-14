@@ -42,13 +42,13 @@ public class RentController {
 
     @PostMapping("/rents/create")
     ResponseEntity<RentDto> createRent(@RequestBody RentDto rentDto) {
-        Long userId = rentDto.getLibraryUserId();
+        Long userId = rentDto.getLibraryUser().getId();
         Long bookId = rentDto.getBookId();
         Rent rent = rentService.createRent(bookId, userId);
         return rentService.toResponseEntity(rent);
     }
 
-    @PutMapping("rents/return")
+    @PatchMapping("rents/return")
     public void returnBook(@RequestBody RentDto rentDto) {
         rentService.returnBook(rentDto);
     }
