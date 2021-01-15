@@ -181,7 +181,7 @@ class RentServiceTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(rent.isActive()).isFalse();
     }
-    todo - how to teat patch request
+//    todo - how to teat patch request
 
 
     private Rent createRent() {
