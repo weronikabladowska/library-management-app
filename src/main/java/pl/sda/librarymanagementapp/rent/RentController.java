@@ -3,16 +3,21 @@ package pl.sda.librarymanagementapp.rent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.librarymanagementapp.exceptions.BadRequestException;
 import pl.sda.librarymanagementapp.user.LibraryUser;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Validated
 public class RentController {
 
     private final RentService rentService;
+    private final RentMapper rentMapper;
 
 
     @GetMapping(value = "/rents", params = "bookId")
@@ -41,11 +46,15 @@ public class RentController {
     }
 
     @PostMapping("/rents/create")
-    ResponseEntity<RentDto> createRent(@RequestBody RentDto rentDto) {
+    public RentDto createRent(@RequestBody @Valid RentDto rentDto) {
+        if (rentDto == null) {
+            throw new BadRequestException("Cannot create Rent from null RentDto");
+        }
         Long userId = rentDto.getLibraryUser().getId();
         Long bookId = rentDto.getBookId();
         Rent rent = rentService.createRent(bookId, userId);
-        return rentService.toResponseEntity(rent);
+        return rentMapper.rentToRentDto(rentService.createRent(rent.getBookId(), rent.getLibraryUser().getId()));
+
     }
 
     @PatchMapping("rents/return")

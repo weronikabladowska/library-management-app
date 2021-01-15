@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.librarymanagementapp.book.BookService;
+import pl.sda.librarymanagementapp.exceptions.BadRequestException;
 import pl.sda.librarymanagementapp.exceptions.NotFoundException;
 import pl.sda.librarymanagementapp.user.LibraryUser;
 import pl.sda.librarymanagementapp.user.UserRepository;
@@ -14,7 +15,6 @@ import pl.sda.librarymanagementapp.user.UserRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,34 +28,34 @@ public class RentService {
     private final BookService bookService;
 
     public RentDto findRentById(@NotNull Long id) {
-        if (rentRepository.findRentById(id)==null || id==null) {
+        if (rentRepository.findRentById(id) == null || id == null) {
             throw new NotFoundException("Cannot find rent with ID: " + id);
-        } else {
-            final Rent rent = rentRepository.findRentById(id);
-            return rentMapper.rentToRentDto(rent);
         }
+        final Rent rent = rentRepository.findRentById(id);
+        return rentMapper.rentToRentDto(rent);
+
     }
 
     public List<RentDto> findRentByBookId(@NotNull Long bookId) {
         if (rentRepository.findRentByBookId(bookId).isEmpty() || bookId == null) {
             throw new NotFoundException("Book with ID: " + bookId + " cannot be found");
-        } else
-            return rentRepository
-                    .findRentByBookId(bookId)
-                    .stream()
-                    .map(rentMapper::rentToRentDto)
-                    .collect(Collectors.toList());
+        }
+        return rentRepository
+                .findRentByBookId(bookId)
+                .stream()
+                .map(rentMapper::rentToRentDto)
+                .collect(Collectors.toList());
     }
 
     public List<RentDto> findRentByLibraryUserId(@NotNull Long userId) {
-        if (rentRepository.findRentByLibraryUserId(userId).isEmpty() || userId==null) {
+        if (rentRepository.findRentByLibraryUserId(userId).isEmpty() || userId == null) {
             throw new NotFoundException("Cannot find user with ID: " + userId);
-        } else
-            return rentRepository
-                    .findRentByLibraryUserId(userId)
-                    .stream()
-                    .map(rentMapper::rentToRentDto)
-                    .collect(Collectors.toList());
+        }
+        return rentRepository
+                .findRentByLibraryUserId(userId)
+                .stream()
+                .map(rentMapper::rentToRentDto)
+                .collect(Collectors.toList());
     }
 
     public List<RentDto> findActiveRents(boolean active) {
@@ -73,32 +73,35 @@ public class RentService {
                 .collect(Collectors.toList());
     }
 
-    public Rent createRent(@NotNull Long bookId, @NotNull Long userId) {
+    public Rent createRent(Long bookId, Long userId) {
 
-        if (userRepository.findById(userId).isEmpty() || bookService.findBookById(bookId).isEmpty() || bookId == null || userId == null) {
+        if (bookId == null || userId == null || userRepository.findById(userId).isEmpty() || bookService.findBookById(bookId).isEmpty()) {
             throw new NotFoundException("Incorrect Book or User ID");
-        } else {
-            LibraryUser user = userRepository.findById(userId).get();
-            Rent.RentBuilder builder = Rent.builder()
-                    .bookId(bookId)
-                    .libraryUser(user)
-                    .borrowDate(LocalDate.now())
-                    .returnDate(LocalDate.now().plusMonths(1))
-                    .active(true);
-
-            Rent rent = builder.build();
-            return rentRepository.save(rent);
         }
+
+        if (rentRepository.findRentByActive(true).stream().filter(rent -> rent.getBookId().equals(bookId)).count() > 0) {
+            throw new BadRequestException("Book with ID: " + bookId + " is already borrowed");
+        }
+        LibraryUser user = userRepository.findById(userId).get();
+        Rent.RentBuilder builder = Rent.builder()
+                .bookId(bookId)
+                .libraryUser(user)
+                .borrowDate(LocalDate.now())
+                .returnDate(LocalDate.now().plusMonths(1))
+                .active(true);
+
+        Rent rent = builder.build();
+        return (rentRepository.save(rent));
+
     }
 
-    public boolean returnBook(RentDto rentDto) {
+    public void returnBook(RentDto rentDto) {
 
         Rent rent = rentRepository.findRentById(rentDto.getId());
         rent.setActive(false);
-        return rent.isActive();
     }
 
-    public ResponseEntity<RentDto>toResponseEntity(Rent rent){
+    public ResponseEntity<RentDto> toResponseEntity(Rent rent) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(rentMapper.rentToRentDto(rent));
