@@ -27,11 +27,17 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping
+    @GetMapping("/page")
     public Page<UserDto> getPageOfUsers(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
         if (pageNum >= 0 && pageSize > 0) {
             return userService.getPageOfUsers(pageNum, pageSize);
         } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping
+    public List<UserDto> getListUsers() {
+            return userService.getListOfUsers();
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

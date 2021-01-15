@@ -65,4 +65,9 @@ public class UserService {
         return page.map(userMapper::userToUserDto);
     }
 
+    public List<UserDto> getListOfUsers() {
+        return userRepository.findAll().stream().map(userMapper::userToUserDto).collect(Collectors.toList());
+
+    }
+
 }
