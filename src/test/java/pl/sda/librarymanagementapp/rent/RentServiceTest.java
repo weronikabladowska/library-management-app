@@ -40,6 +40,8 @@ class RentServiceTest {
     MockMvc mockMvc;
     @Autowired
     RentRepository rentRepository;
+    @Autowired
+    RentMapper rentMapper;
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -163,13 +165,16 @@ class RentServiceTest {
 
     @Test
     void createRent_returns201status() {
+//        todo dopisac test
     }
 
     @Test
     void returnBook_makesRentInactive() throws Exception {
 
         Rent rent = rentRepository.save(createRent());
-        String requestBody = objectMapper.writeValueAsString(rent);
+        RentDto rentDto = rentMapper.rentToRentDto(rent);
+
+        String requestBody = objectMapper.writeValueAsString(rentDto);
         MockHttpServletRequestBuilder request = patch("/rents/return")
                 .contentType(MediaType.APPLICATION_JSON).contentType(requestBody);
 
@@ -181,7 +186,7 @@ class RentServiceTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(rent.isActive()).isFalse();
     }
-//    todo - how to teat patch request
+
 
 
     private Rent createRent() {
