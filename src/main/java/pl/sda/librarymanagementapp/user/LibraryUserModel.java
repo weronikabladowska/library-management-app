@@ -20,6 +20,4 @@ public class LibraryUserModel {
     private Long tel;
     @NotNull
     private String password;
-    @NotNull
-    private Role role;
 }

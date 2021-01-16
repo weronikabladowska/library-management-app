@@ -21,9 +21,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public LibraryUserModel findUserById(Long id) {
+    public UserDto findUserById(Long id) {
         final LibraryUser user = userRepository.findById(id).orElseThrow();
-        return userMapper.userToUserModel(user);
+        return userMapper.userToUserDto(user);
     }
 
     public List<UserDto> findUserByLastName(String lastName) {
@@ -55,10 +55,8 @@ public class UserService {
         if (user.getLastName().trim().isEmpty()) {
             throw new BadRequestException("Pole z nazwiskiem nie może być puste");
         }
-        if (user.getRole() == null) {
-            throw new BadRequestException("Pole z nazwą roli nie może być puste");
-        }
         LibraryUser libraryUser = userMapper.userModelToUser(user);
+        libraryUser.setRole(Role.USER);
         libraryUser.setPassword(passwordEncoder.encode(user.getPassword()));
         LibraryUser savedUser = userRepository.save(libraryUser);
         return userMapper.userToUserDto(savedUser);

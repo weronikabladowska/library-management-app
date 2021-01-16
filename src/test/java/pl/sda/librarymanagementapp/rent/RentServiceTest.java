@@ -96,7 +96,8 @@ class RentServiceTest {
         MockHttpServletResponse response = result.getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         String responseBody = response.getContentAsString();
-        List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {});
+        List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {
+        });
 
         rentDtoFromResponse.forEach((rentDto -> assertThat(rentDto.getBookId()).isEqualTo(rent.getBookId())));
     }
@@ -117,14 +118,12 @@ class RentServiceTest {
         MockHttpServletResponse response = result.getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         String responseBody = response.getContentAsString();
-        List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {});
-        rentDtoFromResponse.stream()
-                .forEach(rentDto -> assertThat(rentRepository
-                        .findRentById(rentDto.getId())
-                        .getLibraryUser()
-                        .getId())
-                        .isEqualTo(id));
+        List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {
+        });
+//        List<Long> rentIdList= rentDtoFromResponse.forEach(rentDto -> rentDto.getId());
+//        rentRepository.findRentById();
 
+        //todo
     }
 
     @Test
@@ -141,7 +140,8 @@ class RentServiceTest {
         MockHttpServletResponse response = result.getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         String responseBody = response.getContentAsString();
-        List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {});
+        List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {
+        });
 
         rentDtoFromResponse.forEach((rentDto -> assertThat(rentDto.isActive())));
     }
@@ -160,7 +160,8 @@ class RentServiceTest {
         MockHttpServletResponse response = result.getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         String responseBody = response.getContentAsString();
-        List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {});
+        List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {
+        });
 
         rentDtoFromResponse.forEach((rentDto -> assertThat(!rentDto.isActive())));
     }
@@ -178,19 +179,18 @@ class RentServiceTest {
 
         String requestBody = objectMapper.writeValueAsString(rentDto);
         MockHttpServletRequestBuilder request = patch("/rents/return")
-                .contentType(MediaType.APPLICATION_JSON);
+                .contentType(MediaType.APPLICATION_JSON).contentType(requestBody);
+
         //when
         MvcResult result = mockMvc.perform(request).andReturn();
+
         //then
         MockHttpServletResponse response = result.getResponse();
-//        String responseBody = response.getContentAsString();
-//        RentDto rentDtoFromResponse = objectMapper.readValue(responseBody, RentDto.class);
-
+        System.out.println(rent.isActive());
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-
+        assertThat(rent.isActive()).isFalse();
 
     }
-
 
 
     private Rent createRent() {
