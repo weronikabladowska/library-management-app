@@ -58,8 +58,9 @@ public class RentController {
     }
 
     @PatchMapping("rents/return")
-    public void returnBook(@RequestBody RentDto rentDto) {
+    public RentDto returnBook(@RequestBody RentDto rentDto) {
         rentService.returnBook(rentDto);
+        return rentDto;
     }
 
 }

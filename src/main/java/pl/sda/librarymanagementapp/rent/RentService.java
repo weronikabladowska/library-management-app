@@ -2,8 +2,6 @@ package pl.sda.librarymanagementapp.rent;
 
 import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.librarymanagementapp.book.BookService;
@@ -11,7 +9,6 @@ import pl.sda.librarymanagementapp.exceptions.BadRequestException;
 import pl.sda.librarymanagementapp.exceptions.NotFoundException;
 import pl.sda.librarymanagementapp.user.LibraryUser;
 import pl.sda.librarymanagementapp.user.UserRepository;
-
 
 import java.time.LocalDate;
 import java.util.List;
@@ -94,18 +91,15 @@ public class RentService {
         return (rentRepository.save(rent));
 
     }
-
-    public void returnBook(RentDto rentDto) {
+// todo -  czy save zapisuje nowego renta czy updatuje istniejacego?
+    public RentDto returnBook(RentDto rentDto) {
 
         Rent rent = rentRepository.findRentById(rentDto.getId());
         rent.setActive(false);
+        rentRepository.save(rent);
+        return rentMapper.rentToRentDto(rent);
     }
 
-    public ResponseEntity<RentDto> toResponseEntity(Rent rent) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(rentMapper.rentToRentDto(rent));
-    }
 
 
 }

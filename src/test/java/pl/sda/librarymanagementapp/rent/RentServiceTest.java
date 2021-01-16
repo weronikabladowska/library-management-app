@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.contentOf;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @SpringBootTest
@@ -183,8 +184,10 @@ class RentServiceTest {
 
         //then
         MockHttpServletResponse response = result.getResponse();
+        System.out.println(rent.isActive());
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(rent.isActive()).isFalse();
+
     }
 
 
