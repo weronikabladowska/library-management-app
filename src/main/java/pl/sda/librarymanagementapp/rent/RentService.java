@@ -69,13 +69,13 @@ public class RentService {
                 .map(rentMapper::rentToRentDto)
                 .collect(Collectors.toList());
     }
-
+//todo return rentdto
     public Rent createRent(Long bookId, Long userId) {
 
-        if (bookId == null || userId == null || userRepository.findById(userId).isEmpty() || bookService.findBookById(bookId).isEmpty()) {
+        if (userRepository.findById(userId).isEmpty() || bookService.findBookById(bookId).isEmpty()) {
             throw new NotFoundException("Incorrect Book or User ID");
         }
-
+//todo findrentbyactiveandbookid
         if (rentRepository.findRentByActive(true).stream().filter(rent -> rent.getBookId().equals(bookId)).count() > 0) {
             throw new BadRequestException("Book with ID: " + bookId + " is already borrowed");
         }

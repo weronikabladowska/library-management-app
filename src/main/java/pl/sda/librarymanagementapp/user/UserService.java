@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.librarymanagementapp.exceptions.BadRequestException;
@@ -18,6 +19,7 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserDto findUserById(Long id) {
         final LibraryUser user = userRepository.findById(id).orElseThrow();
@@ -56,7 +58,9 @@ public class UserService {
         if (user.getRole() == null) {
             throw new BadRequestException("Pole z nazwą roli nie może być puste");
         }
-        LibraryUser savedUser = userRepository.save(userMapper.userModelToUser(user));
+        LibraryUser libraryUser = userMapper.userModelToUser(user);
+        libraryUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        LibraryUser savedUser = userRepository.save(libraryUser);
         return userMapper.userToUserDto(savedUser);
     }
 

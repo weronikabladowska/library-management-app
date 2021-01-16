@@ -17,6 +17,7 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
     List<Rent> findRentByBookId(Long id);
 
     List<Rent> findRentByActive(boolean active);
+    List<Rent> findRentByActiveAndBookId(boolean active, Long bookId);
 
     //to find delayed returns
     List<Rent>findRentByActiveAndReturnDateBefore(boolean active, LocalDate date);
