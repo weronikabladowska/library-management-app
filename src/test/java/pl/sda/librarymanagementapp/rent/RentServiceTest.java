@@ -11,9 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import pl.sda.librarymanagementapp.bootstrap.UserInitializer;
 import pl.sda.librarymanagementapp.user.*;
 
 import javax.annotation.PostConstruct;
@@ -29,6 +31,7 @@ import static org.assertj.core.api.Assertions.contentOf;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -40,7 +43,6 @@ class RentServiceTest {
     RentRepository rentRepository;
     @Autowired
     RentMapper rentMapper;
-    LibraryUserAdapter libraryUserAdapter;
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -50,6 +52,7 @@ class RentServiceTest {
         rentRepository.save(createRent());
         rentRepository.save(createRent());
 
+
     }
 
     @PostConstruct
@@ -58,6 +61,7 @@ class RentServiceTest {
     }
 
     @Test
+    @WithMockUser(value = "email@email.com", password = "password123")
     void findRentById_returnCorrectRent() throws Exception {
         //given
         Rent rent = rentRepository.save(createRent());
@@ -81,6 +85,7 @@ class RentServiceTest {
     }
 
     @Test
+    @WithMockUser(value = "email@email.com", password = "password123")
     void findRentByBookId_returnsRentList() throws Exception {
 
         //given
@@ -104,6 +109,7 @@ class RentServiceTest {
 
 
     @Test
+    @WithMockUser(value = "email@email.com", password = "password123")
     void findRentByLibraryUserId_returnsRentList() throws Exception {
         //given
         Rent rent = rentRepository.save(createRent());
@@ -127,6 +133,7 @@ class RentServiceTest {
     }
 
     @Test
+    @WithMockUser(value = "email@email.com", password = "password123")
     void findActiveRents_returnsRentList() throws Exception {
         //given
         Rent rent = rentRepository.save(createRent());
@@ -147,6 +154,7 @@ class RentServiceTest {
     }
 
     @Test
+    @WithMockUser(value = "email@email.com", password = "password123")
     void findDelayedRents() throws Exception {
         Rent rent = rentRepository.save(createRent());
         rent.setActive(false);
@@ -172,23 +180,18 @@ class RentServiceTest {
     }
 
     @Test
+    @WithMockUser(value = "email@email.com", password = "password123")
     void returnBook_makesRentInactive() throws Exception {
 
         Rent rent = rentRepository.save(createRent());
-        RentDto rentDto = rentMapper.rentToRentDto(rent);
+        Long rentId = rent.getId();
 
-        String requestBody = objectMapper.writeValueAsString(rentDto);
-        MockHttpServletRequestBuilder request = put("/rents/return")
+        String requestBody = objectMapper.writeValueAsString(rentId);
+        MockHttpServletRequestBuilder request = put("/rents/return?rentId=" + rentId)
                 .contentType(MediaType.APPLICATION_JSON).contentType(requestBody);
 
         //when
-        MvcResult result = mockMvc.perform(request).andReturn();
-
-        //then
-        MockHttpServletResponse response = result.getResponse();
-        System.out.println(rent.isActive());
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(rent.isActive()).isFalse();
+        mockMvc.perform(request).andExpect(status().isNoContent());
 
     }
 

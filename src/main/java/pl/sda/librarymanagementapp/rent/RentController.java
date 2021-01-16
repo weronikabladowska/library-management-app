@@ -48,6 +48,7 @@ public class RentController {
     }
 
     @PostMapping("/rents/create")
+    @ResponseStatus(HttpStatus.CREATED)
     public RentDto createRent(@RequestBody @Valid RentDto rentDto, @AuthenticationPrincipal LibraryUserAdapter libraryUserAdapter) {
         if (rentDto == null) {
             throw new BadRequestException("Cannot create Rent from null RentDto");
@@ -58,9 +59,9 @@ public class RentController {
     }
 
     @PutMapping("/rents/return")
-    public boolean returnBook(@RequestParam (name = "rentId") Long rentId) {
-       return rentService.returnBook(rentId);
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void returnBook(@RequestParam (name = "rentId") Long rentId) {
+        rentService.returnBook(rentId);
     }
 
 }

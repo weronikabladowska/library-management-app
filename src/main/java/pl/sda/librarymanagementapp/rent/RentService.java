@@ -92,13 +92,9 @@ public class RentService {
 
     }
 
-    // todo -  czy save zapisuje nowego renta czy updatuje istniejacego?
-    public boolean returnBook(Long rentId) {
+    public void returnBook(Long rentId) {
 
-        Rent rent = rentRepository.findRentById(rentId);
-        rent.setActive(false);
-        rentRepository.save(rent);
-        return rent.isActive();
+        rentRepository.findById(rentId).ifPresentOrElse(rent -> rent.setActive(false), ()-> {throw new BadRequestException("rent with ID not found");});
     }
 
 
