@@ -30,8 +30,8 @@ public class UserCreateIntegrationTest {
     void createNewUser_getStatus201() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("Marta", "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("Marta", "Nowak", 1995, "meil@gmail.com", 589745632L, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder request = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
@@ -48,8 +48,8 @@ public class UserCreateIntegrationTest {
     void createNewUser_whenYearIsNull_getStatus201() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("Marta", "Nowak", null, "meil@gmail.com", 589745632L, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("Marta", "Nowak", null, "meil@gmail.com", 589745632L, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder request = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
@@ -65,8 +65,8 @@ public class UserCreateIntegrationTest {
     void createNewUser_whenPhoneNumberIsNull_getStatus201() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("Marta", "Nowak", 1999, "meil@gmail.com", null, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("Marta", "Nowak", 1992, "meil@gmail.com", null, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder request = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
@@ -83,8 +83,8 @@ public class UserCreateIntegrationTest {
     void createUser_whenNameIsEmpty_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("", "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("", "Nowak", 1992, "meil@gmail.com", 589745632L, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
@@ -100,8 +100,8 @@ public class UserCreateIntegrationTest {
     void createUser_whenNameIsBlank_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("   ", "Nowak", 1999, "meil@gmail.com", 589745632L, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("      ", "Nowak", 1992, "meil@gmail.com", 589745632L, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
@@ -117,8 +117,8 @@ public class UserCreateIntegrationTest {
     void createUser_whenLastNameIsEmpty_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("Kasia", "", 1999, "meil@gmail.com", 589745632L, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("Marta", "", 1992, "meil@gmail.com", 589745632L, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
@@ -134,8 +134,8 @@ public class UserCreateIntegrationTest {
     void createUser_whenLastNameIsBlank_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("Zocha", "   ", 1999, "meil@gmail.com", 589745632L, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("Marta", "    ", 1990, "meil@gmail.com", 589745632L, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
@@ -151,8 +151,8 @@ public class UserCreateIntegrationTest {
     void createUser_whenEmailIsEmpty_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("Tomek", "Nowak", 1999, "", 589745632L, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("Marta", "Nowak", 19985, "", 589745632L, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
@@ -168,25 +168,8 @@ public class UserCreateIntegrationTest {
     void createUser_whenEmailIsBlank_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("Franek", "Nowak", 1999, "    ", 589745632L, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
-        MockHttpServletRequestBuilder post = post("/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody);
-        //when
-        MvcResult result = mockMvc.perform(post).andReturn();
-
-        //then
-        MockHttpServletResponse response = result.getResponse();
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-    }
-
-    @Test
-    void createUser_whenRoleIsEmpty_returns400StatusCode() throws Exception {
-        //given
-        userRepository.deleteAll();
-        UserDto userDTO = new UserDto("Dawid", "Nowak", 1999, "meil@gmail.com", 589745632L, null);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("Marta", "Nowak", 1990, "     ", 589745632L, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
@@ -202,8 +185,8 @@ public class UserCreateIntegrationTest {
     void createUser_whenEmailIsNull_returns400StatusCode() throws Exception {
         //given
         userRepository.deleteAll();
-        UserDto userDTO = new UserDto("Dawid", "Nowak", 1999, null, 589745632L, Role.USER);
-        String requestBody = objectMapper.writeValueAsString(userDTO);
+        LibraryUserModel userModel = new LibraryUserModel("Marta", "Nowak", 1990, null, 589745632L, "maslo");
+        String requestBody = objectMapper.writeValueAsString(userModel);
         MockHttpServletRequestBuilder post = post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
