@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable Long id) {
+    public LibraryUserModel getUserById(@PathVariable Long id) {
         return userService.findUserById(id);
     }
 

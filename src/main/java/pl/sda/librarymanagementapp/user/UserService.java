@@ -21,9 +21,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserDto findUserById(Long id) {
+    public LibraryUserModel findUserById(Long id) {
         final LibraryUser user = userRepository.findById(id).orElseThrow();
-        return userMapper.userToUserDto(user);
+        return userMapper.userToUserModel(user);
     }
 
     public List<UserDto> findUserByLastName(String lastName) {

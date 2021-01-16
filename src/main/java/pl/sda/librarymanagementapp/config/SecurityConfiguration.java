@@ -22,8 +22,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //todo - antmatchery, ktore sciezki jaka role maja miejsc
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/**").hasRole("USER")
-                .antMatchers("/rents/delayed").hasRole("ADMIN")
+        http
+                .authorizeRequests()
+                .antMatchers("/**").hasRole("USER")
+                .antMatchers("/rents/delayed").hasRole("USER")
                 .antMatchers("/login", "/h2").permitAll()
                 .and()
                 .httpBasic()

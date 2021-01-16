@@ -49,6 +49,7 @@ class RentServiceTest {
         rentRepository.deleteAll();
         rentRepository.save(createRent());
         rentRepository.save(createRent());
+
     }
 
     @PostConstruct
@@ -117,11 +118,13 @@ class RentServiceTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         String responseBody = response.getContentAsString();
         List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {});
-        rentDtoFromResponse.stream().
-        List<Long> rentIdList= rentDtoFromResponse.forEach(rentDto -> rentDto.getId());
-        rentRepository.findRentById()
+        rentDtoFromResponse.stream()
+                .forEach(rentDto -> assertThat(rentRepository
+                        .findRentById(rentDto.getId())
+                        .getLibraryUser()
+                        .getId())
+                        .isEqualTo(id));
 
-        //todo
     }
 
     @Test
@@ -175,16 +178,16 @@ class RentServiceTest {
 
         String requestBody = objectMapper.writeValueAsString(rentDto);
         MockHttpServletRequestBuilder request = patch("/rents/return")
-                .contentType(MediaType.APPLICATION_JSON).contentType(requestBody);
-
+                .contentType(MediaType.APPLICATION_JSON);
         //when
         MvcResult result = mockMvc.perform(request).andReturn();
-
         //then
         MockHttpServletResponse response = result.getResponse();
-        System.out.println(rent.isActive());
+//        String responseBody = response.getContentAsString();
+//        RentDto rentDtoFromResponse = objectMapper.readValue(responseBody, RentDto.class);
+
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(rent.isActive()).isFalse();
+
 
     }
 

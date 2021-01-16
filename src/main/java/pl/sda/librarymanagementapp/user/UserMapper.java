@@ -10,4 +10,5 @@ public interface UserMapper {
     LibraryUser userDtoToLibraryUser(UserDto userDto);
     LibraryUser userModelToUser (LibraryUserModel userModel);
     UserDto userToUserDto(LibraryUser libraryUser);
+    LibraryUserModel userToUserModel(LibraryUser libraryUser);
 }
