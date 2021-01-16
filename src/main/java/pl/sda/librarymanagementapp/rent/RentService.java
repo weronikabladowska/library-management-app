@@ -69,14 +69,13 @@ public class RentService {
                 .map(rentMapper::rentToRentDto)
                 .collect(Collectors.toList());
     }
-//todo return rentdto
-    public Rent createRent(Long bookId, Long userId) {
+
+    public RentDto createRent(Long bookId, Long userId) {
 
         if (userRepository.findById(userId).isEmpty() || bookService.findBookById(bookId).isEmpty()) {
             throw new NotFoundException("Incorrect Book or User ID");
         }
-//todo findrentbyactiveandbookid
-        if (rentRepository.findRentByActive(true).stream().filter(rent -> rent.getBookId().equals(bookId)).count() > 0) {
+        if (rentRepository.findRentByActiveAndBookId(true, bookId).size() > 0) {
             throw new BadRequestException("Book with ID: " + bookId + " is already borrowed");
         }
         LibraryUser user = userRepository.findById(userId).get();
@@ -88,10 +87,12 @@ public class RentService {
                 .active(true);
 
         Rent rent = builder.build();
-        return (rentRepository.save(rent));
+
+        return rentMapper.rentToRentDto(rentRepository.save(rent));
 
     }
-// todo -  czy save zapisuje nowego renta czy updatuje istniejacego?
+
+    // todo -  czy save zapisuje nowego renta czy updatuje istniejacego?
     public RentDto returnBook(RentDto rentDto) {
 
         Rent rent = rentRepository.findRentById(rentDto.getId());
@@ -99,7 +100,6 @@ public class RentService {
         rentRepository.save(rent);
         return rentMapper.rentToRentDto(rent);
     }
-
 
 
 }

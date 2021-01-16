@@ -54,9 +54,7 @@ public class RentController {
         }
         Long userId = libraryUserAdapter.getId();
         Long bookId = rentDto.getBookId();
-        Rent rent = rentService.createRent(bookId, userId);
-        return rentMapper.rentToRentDto(rentService.createRent(rent.getBookId(), rent.getLibraryUser().getId()));
-
+        return rentService.createRent(bookId, userId);
     }
 
     @PatchMapping("rents/return")
