@@ -57,10 +57,10 @@ public class RentController {
         return rentService.createRent(bookId, userId);
     }
 
-    @PatchMapping("rents/return")
-    public RentDto returnBook(@RequestBody RentDto rentDto) {
-        rentService.returnBook(rentDto);
-        return rentDto;
+    @PutMapping("/rents/return")
+    public boolean returnBook(@RequestParam (name = "rentId") Long rentId) {
+       return rentService.returnBook(rentId);
+
     }
 
 }

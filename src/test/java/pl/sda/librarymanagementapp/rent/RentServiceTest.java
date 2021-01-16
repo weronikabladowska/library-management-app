@@ -178,7 +178,7 @@ class RentServiceTest {
         RentDto rentDto = rentMapper.rentToRentDto(rent);
 
         String requestBody = objectMapper.writeValueAsString(rentDto);
-        MockHttpServletRequestBuilder request = patch("/rents/return")
+        MockHttpServletRequestBuilder request = put("/rents/return")
                 .contentType(MediaType.APPLICATION_JSON).contentType(requestBody);
 
         //when

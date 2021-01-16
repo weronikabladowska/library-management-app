@@ -93,12 +93,12 @@ public class RentService {
     }
 
     // todo -  czy save zapisuje nowego renta czy updatuje istniejacego?
-    public RentDto returnBook(RentDto rentDto) {
+    public boolean returnBook(Long rentId) {
 
-        Rent rent = rentRepository.findRentById(rentDto.getId());
+        Rent rent = rentRepository.findRentById(rentId);
         rent.setActive(false);
         rentRepository.save(rent);
-        return rentMapper.rentToRentDto(rent);
+        return rent.isActive();
     }
 
 
