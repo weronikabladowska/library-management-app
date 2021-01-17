@@ -24,10 +24,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-//                .antMatchers("/**").hasRole("USER")
-                .anyRequest().permitAll()
-//                .antMatchers("/rents/delayed").hasRole("USER")
-//                .antMatchers("/login", "/h2").permitAll()
+                .antMatchers("/**").permitAll()
+                .antMatchers("/rents/delayed").hasRole("ADMIN")
+                .antMatchers("/rents/active").hasRole("ADMIN")
+                .antMatchers("/rents?bookId=**").hasRole("ADMIN")
+                .antMatchers("/rents?rentId=**").hasRole("ADMIN")
+                .antMatchers("/rents/create").hasRole("USER")
+                .antMatchers("/address/**").hasRole("USER")
+                .antMatchers("/login", "/h2").permitAll()
                 .and()
                 .httpBasic()
                 .and()
