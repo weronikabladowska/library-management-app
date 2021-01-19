@@ -18,5 +18,6 @@ public class UserInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         repository.save(LibraryUser.builder().email("email@email.com").password(passwordEncoder.encode("password123")).role(Role.USER).build());
+        repository.save(LibraryUser.builder().email("admin@admin.com").password(passwordEncoder.encode("admin123")).role(Role.ADMIN).build());
     }
-}//todo create admin
+}

@@ -1,10 +1,14 @@
 package pl.sda.librarymanagementapp.rent;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +19,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import pl.sda.librarymanagementapp.adress.AddressDto;
 import pl.sda.librarymanagementapp.bootstrap.UserInitializer;
 import pl.sda.librarymanagementapp.user.*;
 
@@ -35,6 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@RunWith(MockitoJUnitRunner.class)
 class RentServiceTest {
 
     @Autowired
@@ -43,6 +50,11 @@ class RentServiceTest {
     RentRepository rentRepository;
     @Autowired
     RentMapper rentMapper;
+    LibraryUserAdapter libraryUserAdapter;
+    UserRepository userRepository;
+
+
+
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -126,10 +138,15 @@ class RentServiceTest {
         String responseBody = response.getContentAsString();
         List<RentDto> rentDtoFromResponse = objectMapper.readValue(responseBody, new TypeReference<>() {
         });
-//        List<Long> rentIdList= rentDtoFromResponse.forEach(rentDto -> rentDto.getId());
-//        rentRepository.findRentById();
 
-        //todo
+        rentDtoFromResponse.stream()
+                .forEach(rentDto -> assertThat(rentRepository
+                        .findRentById(rentDto.getId())
+                        .getLibraryUser()
+                        .getId())
+                        .isEqualTo(id));
+
+
     }
 
     @Test
@@ -175,8 +192,26 @@ class RentServiceTest {
     }
 
     @Test
-    void createRent_returns201status() {
-//        todo dopisac test
+    @WithMockUser(value = "email@email.com", password = "password123", roles = "USER")
+    void createRent_returns201status() throws Exception {
+
+        //given
+        rentRepository.deleteAll();
+        RentDto rentDto = new RentDto();
+        rentDto.setBookId(1000563L);
+
+        String requestBody = objectMapper.writeValueAsString(rentDto);
+        String requestBodyUser = objectMapper.writeValueAsString(libraryUserAdapter);
+        MockHttpServletRequestBuilder request = post("/rents/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody).contentType(requestBodyUser);
+
+        //when
+        MvcResult result = mockMvc.perform(request).andReturn();
+
+        //then
+        MockHttpServletResponse response = result.getResponse();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
     }
 
     @Test

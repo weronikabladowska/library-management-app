@@ -19,7 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService() {
         return customUserDetailsService;
     }
-//todo - antmatchery, ktore sciezki jaka role maja miejsc
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -31,6 +31,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rents?rentId=**").hasRole("ADMIN")
                 .antMatchers("/rents/create").hasRole("USER")
                 .antMatchers("/address/**").hasRole("USER")
+                .antMatchers("/address/street/**").hasRole("ADMIN")
+                .antMatchers("/users/page**").hasRole("ADMIN")
+                .antMatchers("/users/lastName/**").hasRole("ADMIN")
+                .antMatchers("/users/email/**").hasRole("ADMIN")
+                .antMatchers("/users/tel/**").hasRole("ADMIN")
                 .antMatchers("/login", "/h2").permitAll()
                 .and()
                 .httpBasic()
