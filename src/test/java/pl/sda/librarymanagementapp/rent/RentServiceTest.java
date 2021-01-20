@@ -204,7 +204,8 @@ class RentServiceTest {
         String requestBodyUser = objectMapper.writeValueAsString(libraryUserAdapter);
         MockHttpServletRequestBuilder request = post("/rents/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody).contentType(requestBodyUser);
+                .content(requestBody)
+                .contentType(requestBodyUser);
 
         //when
         MvcResult result = mockMvc.perform(request).andReturn();
