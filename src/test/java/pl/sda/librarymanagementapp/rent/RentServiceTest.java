@@ -1,17 +1,16 @@
 package pl.sda.librarymanagementapp.rent;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -19,23 +18,16 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pl.sda.librarymanagementapp.adress.AddressDto;
-import pl.sda.librarymanagementapp.bootstrap.UserInitializer;
-import pl.sda.librarymanagementapp.user.*;
+import org.springframework.util.Base64Utils;
+import pl.sda.librarymanagementapp.user.LibraryUser;
+import pl.sda.librarymanagementapp.user.LibraryUserAdapter;
+import pl.sda.librarymanagementapp.user.UserRepository;
 
 import javax.annotation.PostConstruct;
-import java.lang.reflect.Type;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.contentOf;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,11 +42,6 @@ class RentServiceTest {
     RentRepository rentRepository;
     @Autowired
     RentMapper rentMapper;
-    LibraryUserAdapter libraryUserAdapter;
-    UserRepository userRepository;
-
-
-
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -63,8 +50,6 @@ class RentServiceTest {
         rentRepository.deleteAll();
         rentRepository.save(createRent());
         rentRepository.save(createRent());
-
-
     }
 
     @PostConstruct
@@ -73,7 +58,7 @@ class RentServiceTest {
     }
 
     @Test
-    @WithMockUser(value = "email@email.com", password = "password123")
+    @WithMockUser(value = "admin@admin.com", password = "admin123")
     void findRentById_returnCorrectRent() throws Exception {
         //given
         Rent rent = rentRepository.save(createRent());
@@ -97,7 +82,7 @@ class RentServiceTest {
     }
 
     @Test
-    @WithMockUser(value = "email@email.com", password = "password123")
+    @WithMockUser(value = "admin@admin.com", password = "admin123")
     void findRentByBookId_returnsRentList() throws Exception {
 
         //given
@@ -145,17 +130,15 @@ class RentServiceTest {
                         .getLibraryUser()
                         .getId())
                         .isEqualTo(id));
-
-
     }
 
     @Test
-    @WithMockUser(value = "email@email.com", password = "password123")
     void findActiveRents_returnsRentList() throws Exception {
         //given
         Rent rent = rentRepository.save(createRent());
         MockHttpServletRequestBuilder request = get("/rents/active")
-                .contentType(MediaType.APPLICATION_JSON);
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString("admin@admin.com:admin123".getBytes()));;
 
         //when
         MvcResult result = mockMvc.perform(request).andReturn();
@@ -171,12 +154,12 @@ class RentServiceTest {
     }
 
     @Test
-    @WithMockUser(value = "email@email.com", password = "password123")
     void findDelayedRents() throws Exception {
         Rent rent = rentRepository.save(createRent());
         rent.setActive(false);
         MockHttpServletRequestBuilder request = get("/rents/delayed")
-                .contentType(MediaType.APPLICATION_JSON);
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString("admin@admin.com:admin123".getBytes()));
 
         //when
         MvcResult result = mockMvc.perform(request).andReturn();
@@ -192,7 +175,6 @@ class RentServiceTest {
     }
 
     @Test
-    @WithMockUser(value = "email@email.com", password = "password123", roles = "USER")
     void createRent_returns201status() throws Exception {
 
         //given
@@ -201,15 +183,13 @@ class RentServiceTest {
         rentDto.setBookId(1000563L);
 
         String requestBody = objectMapper.writeValueAsString(rentDto);
-        String requestBodyUser = objectMapper.writeValueAsString(libraryUserAdapter);
+
         MockHttpServletRequestBuilder request = post("/rents/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody)
-                .contentType(requestBodyUser);
-
+                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString("email@email.com:password123".getBytes()));
         //when
         MvcResult result = mockMvc.perform(request).andReturn();
-
         //then
         MockHttpServletResponse response = result.getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
@@ -225,10 +205,8 @@ class RentServiceTest {
         String requestBody = objectMapper.writeValueAsString(rentId);
         MockHttpServletRequestBuilder request = put("/rents/return?rentId=" + rentId)
                 .contentType(MediaType.APPLICATION_JSON).contentType(requestBody);
-
         //when
         mockMvc.perform(request).andExpect(status().isNoContent());
-
     }
 
 
