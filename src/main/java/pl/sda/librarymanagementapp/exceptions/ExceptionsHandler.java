@@ -22,4 +22,8 @@ public class ExceptionsHandler {
         log.error(exception.getMessage());
     }
 
+    @ExceptionHandler (NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    void notFoundException(NotFoundException exception){ log.error(exception.getMessage());}
+
 }

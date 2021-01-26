@@ -58,5 +58,11 @@ public class UserController {
         return userService.findUserByTelNumber(tel);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/authentication/{email}/{password}")
+    public UserDto doesAuthenticatedUserExist(@PathVariable final String email, @PathVariable final  String password) {
+        return userService.findIfUserAlreadyExists(email, password);
+    }
+
 
 }
