@@ -14,6 +14,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Validated
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class RentController {
 
     private final RentService rentService;

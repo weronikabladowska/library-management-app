@@ -14,10 +14,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Validated
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class BookController {
 
     private final BookService bookService;
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/books", params = "title")
     public List<BookDto> getBookByTitle(@RequestParam(name = "title") String title) {
         return bookService.findBookByTitle(title);

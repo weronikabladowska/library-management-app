@@ -11,6 +11,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class UserController {
 
     private final UserService userService;
@@ -26,7 +28,6 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/page")
     public Page<UserDto> getPageOfUsers(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
         if (pageNum >= 0 && pageSize > 0) {
@@ -34,35 +35,29 @@ public class UserController {
         } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public List<UserDto> getListUsers() {
-            return userService.getListOfUsers();
+        return userService.getListOfUsers();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/lastName/{lastName}")
     public List<UserDto> getUserByLastName(@PathVariable final String lastName) {
         return userService.findUserByLastName(lastName);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/email/{email}")
     public UserDto getUserByEmail(@PathVariable final String email) {
         return userService.findUserByEmail(email);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/tel/{tel}")
     public UserDto getUserByTelNumber(@PathVariable final Long tel) {
         return userService.findUserByTelNumber(tel);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/authentication/{email}/{password}")
-    public UserDto doesAuthenticatedUserExist(@PathVariable final String email, @PathVariable final  String password) {
+    public UserDto doesAuthenticatedUserExist(@PathVariable final String email, @PathVariable final String password) {
         return userService.findIfUserAlreadyExists(email, password);
     }
-
 
 }
