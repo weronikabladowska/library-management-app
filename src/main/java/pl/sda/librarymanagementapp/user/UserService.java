@@ -41,7 +41,7 @@ public class UserService {
 
     public UserDto findIfUserAlreadyExists(String email, String password) {
 
-        if (userRepository.findLibrary_userByEmail(email) ==null) {
+        if (userRepository.findLibrary_userByEmail(email) == null) {
             throw new NotFoundException("User " + " not found");
         } else {
             return userMapper.userToUserDto(userRepository.findLibrary_userByEmail(email));
@@ -49,8 +49,11 @@ public class UserService {
     }
 
 
-    public UserDto findUserByTelNumber(Long number) {
-        return userMapper.userToUserDto(userRepository.findLibrary_userByTel(number));
+    public List<UserDto> findUserByTelNumber(Long number) {
+        return userRepository.findLibrary_userByTel(number)
+                .stream()
+                .map(userMapper::userToUserDto)
+                .collect(Collectors.toList());
     }
 
     public UserDto createUser(@NotNull LibraryUserModel user) {

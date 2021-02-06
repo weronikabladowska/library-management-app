@@ -10,6 +10,6 @@ public interface UserRepository extends JpaRepository<LibraryUser, Long> {
 
     LibraryUser findLibrary_userByEmail(String email);
 
-    LibraryUser findLibrary_userByTel(Long telNumber);
+    List<LibraryUser> findLibrary_userByTel(Long telNumber);
 
 }

@@ -50,8 +50,13 @@ public class UserController {
         return userService.findUserByEmail(email);
     }
 
+//    @GetMapping("/tel/{tel}")
+//    public UserDto getUserByTelNumberSingel(@PathVariable final Long tel) {
+//        return userService.findUserByTelNumber(tel);
+//    }
+
     @GetMapping("/tel/{tel}")
-    public UserDto getUserByTelNumber(@PathVariable final Long tel) {
+    public List<UserDto> getUserByTelNumber(@PathVariable final Long tel) {
         return userService.findUserByTelNumber(tel);
     }
 
@@ -59,5 +64,4 @@ public class UserController {
     public UserDto doesAuthenticatedUserExist(@PathVariable final String email, @PathVariable final String password) {
         return userService.findIfUserAlreadyExists(email, password);
     }
-
 }
