@@ -28,6 +28,11 @@ public class UserController {
         return userService.findUserById(id);
     }
 
+    @DeleteMapping
+    public String deleteUser(@RequestBody Long id) {
+        return userService.deleteUser(id);
+    }
+
     @GetMapping("/page")
     public Page<UserDto> getPageOfUsers(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
         if (pageNum >= 0 && pageSize > 0) {

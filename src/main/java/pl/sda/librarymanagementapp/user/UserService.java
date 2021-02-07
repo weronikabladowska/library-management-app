@@ -12,6 +12,7 @@ import pl.sda.librarymanagementapp.exceptions.BadRequestException;
 import pl.sda.librarymanagementapp.exceptions.NotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +27,16 @@ public class UserService {
     public UserDto findUserById(Long id) {
         final LibraryUser user = userRepository.findById(id).orElseThrow();
         return userMapper.userToUserDto(user);
+    }
+
+    public String deleteUser(Long id){
+        final LibraryUser userToDelete = userRepository.findById(id).get();
+        if (userToDelete.equals(null)){
+            return "No such Library user";
+        }else{
+            userRepository.delete(userToDelete);
+            return "Library User with id:"+id+" was deleted";
+        }
     }
 
     public List<UserDto> findUserByLastName(String lastName) {
