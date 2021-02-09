@@ -118,7 +118,7 @@ public class BookService {
 
     public ResponseEntity<BookSourceResponse> fetchResults(String url) {
         return restTemplate.getForEntity(url, BookSourceResponse.class);
-            }
+    }
 
     List<BookDto> createBooksList(ResponseEntity<BookSourceResponse> entity) {
         if (!entity.getStatusCode().is2xxSuccessful()) {

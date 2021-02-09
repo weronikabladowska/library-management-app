@@ -19,6 +19,7 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
+
     @GetMapping(value = "/books", params = "title")
     public List<BookDto> getBookByTitle(@RequestParam(name = "title") String title) {
         return bookService.findBookByTitle(title);
@@ -37,6 +38,6 @@ public class BookController {
 
     @GetMapping(value = "/booksPage", params = "title")
     public Page<BookDto> getPaginatedBooksbyTitle(@RequestParam(name = "title") String title) {
-        return bookService.findPaginatedByTitle(PageRequest.of(0,10), title);
+        return bookService.findPaginatedByTitle(PageRequest.of(0, 10), title);
     }
 }

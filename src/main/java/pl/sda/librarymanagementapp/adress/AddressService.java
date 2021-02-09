@@ -17,21 +17,21 @@ import java.util.stream.Collectors;
 public class AddressService {
 
     private final AddressMapper addressMapper;
-    private final AdressRepository adressRepository;
+    private final AddressesRepository addressesRepository;
 
     public AddressDto findAddressById(Long id){
-        return addressMapper.addressToAddressDto(adressRepository.findById(id).orElseThrow());
+        return addressMapper.addressToAddressDto(addressesRepository.findById(id).orElseThrow());
     }
 
     public List<AddressDto> findAddressByStreet(String street) {
-        return adressRepository.findAddressByStreet(street)
+        return addressesRepository.findAddressByStreet(street)
                 .stream()
                 .map(addressMapper::addressToAddressDto)
                 .collect(Collectors.toList());
     }
 
     public Page<AddressDto> getPageOfAddresses(Integer pageNum, Integer pageSize){
-      return   adressRepository
+      return   addressesRepository
               .findAll(PageRequest.of(pageNum, pageSize))
               .map(addressMapper::addressToAddressDto);
     }
@@ -46,7 +46,7 @@ public class AddressService {
         if (address.getHouseNumber().trim().isEmpty()) {
             throw new BadRequestException("Pole z numerem domu nie może być puste");
         }
-        Address savedAddress = adressRepository.save(addressMapper.addressDtoToAddress(address));
+        Address savedAddress = addressesRepository.save(addressMapper.addressDtoToAddress(address));
         return addressMapper.addressToAddressDto(savedAddress);
     }
 

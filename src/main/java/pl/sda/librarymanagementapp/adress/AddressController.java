@@ -18,7 +18,7 @@ public class AddressController {
     private final AddressService addressService;
 
     @GetMapping
-    public Page<AddressDto> getPageOfAddreses (@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
+    public Page<AddressDto> getPageOfAddreses(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
         if (pageNum <= 0 && pageSize < 0) {
             return addressService.getPageOfAddresses(pageNum, pageSize);
         } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
@@ -30,7 +30,7 @@ public class AddressController {
     }
 
     @GetMapping("/street/{street}")
-    public List<AddressDto> findByStreet (@PathVariable String street){
+    public List<AddressDto> findByStreet(@PathVariable String street) {
         return addressService.findAddressByStreet(street);
     }
 

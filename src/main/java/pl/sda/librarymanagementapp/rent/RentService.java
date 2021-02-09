@@ -94,7 +94,9 @@ public class RentService {
 
     public void returnBook(Long rentId) {
 
-        rentRepository.findById(rentId).ifPresentOrElse(rent -> rent.setActive(false), ()-> {throw new BadRequestException("rent with ID not found");});
+        rentRepository.findById(rentId).ifPresentOrElse(rent -> rent.setActive(false), () -> {
+            throw new BadRequestException("rent with ID not found");
+        });
     }
 
 
