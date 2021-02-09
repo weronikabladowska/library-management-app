@@ -38,13 +38,13 @@ public class AddressService {
 
     public AddressDto creatAddress (@NotNull AddressDto address) {
         if (address.getCity().trim().isEmpty()) {
-            throw new BadRequestException("Pole z nazwą miasta nie może być puste");
+            throw new BadRequestException("City name cannot be empty");
         }
         if (address.getStreet().trim().isEmpty()) {
-            throw new BadRequestException("Pole z nazwą ulicy nie może być puste");
+            throw new BadRequestException("Street name cannot be empty");
         }
         if (address.getHouseNumber().trim().isEmpty()) {
-            throw new BadRequestException("Pole z numerem domu nie może być puste");
+            throw new BadRequestException("House number cannot be empty");
         }
         Address savedAddress = addressesRepository.save(addressMapper.addressDtoToAddress(address));
         return addressMapper.addressToAddressDto(savedAddress);

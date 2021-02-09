@@ -21,7 +21,7 @@ public class AddressController {
     public Page<AddressDto> getPageOfAddreses(@RequestParam(name = "pageNum") final Integer pageNum, @RequestParam(name = "pageSize") final Integer pageSize) {
         if (pageNum <= 0 && pageSize < 0) {
             return addressService.getPageOfAddresses(pageNum, pageSize);
-        } else throw new BadBoundaryException("Numer strony i wielkość strony muszą być wartościami dodatnimi");
+        } else throw new BadBoundaryException("Page number and page size have to be positive");
     }
 
     @GetMapping("/{id}")

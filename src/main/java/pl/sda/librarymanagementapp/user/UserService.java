@@ -68,16 +68,16 @@ public class UserService {
     public UserDto createUser(@NotNull LibraryUserModel user) {
 
         if (user.getFirstName().trim().isEmpty()) {
-            throw new BadRequestException("Pole z nazwą nie może być puste");
+            throw new BadRequestException("Name cannot be empty");
         }
         if (user.getPassword().trim().isEmpty()) {
-            throw new BadRequestException("Pole z hasłem nie może być puste");
+            throw new BadRequestException("Password cannot be empty");
         }
         if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
-            throw new BadRequestException("Pole z email nie może być puste");
+            throw new BadRequestException("Email cannot be empty");
         }
         if (user.getLastName().trim().isEmpty()) {
-            throw new BadRequestException("Pole z nazwiskiem nie może być puste");
+            throw new BadRequestException("Surname cannot be empty");
         }
         LibraryUser libraryUser = userMapper.userModelToUser(user);
         libraryUser.setRole(Role.USER);

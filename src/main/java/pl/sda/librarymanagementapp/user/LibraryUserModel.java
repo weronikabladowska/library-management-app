@@ -16,7 +16,7 @@ public class LibraryUserModel {
     private String lastName;
     private Integer year;
     @NotNull
-    private String email; //email jest loginem
+    private String email; //email is login
     private Long tel;
     @NotNull
     private String password;

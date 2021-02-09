@@ -59,26 +59,6 @@ public class UserGetIntegrationTests {
         assertThat(userDtoFromResponse.getYear()).isEqualTo(user.getYear());
     }
 
-//    @Test
-//    void getPageOfUsers_getCorrectUsersList() throws Exception {
-//        //given
-//
-//        //ToDO: Trzeba przekazać numer strony i ilość na stronie- jak?
-//
-//        MockHttpServletRequestBuilder request = get("/users")
-//                .contentType(MediaType.APPLICATION_JSON);
-//        //when
-//        MvcResult result = mockMvc
-//                .perform(request)
-//                .andReturn();
-//
-//        //then
-//        MockHttpServletResponse response = result.getResponse();
-//        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-//        String responseBody = response.getContentAsString();
-//        UserDTO userDTO = objectMapper.readValue(responseBody, UserDTO.class);
-//        assertThat(userDTO).isNotNull();
-//    }
 
     private LibraryUser createUser() {
         return new LibraryUser().builder()
