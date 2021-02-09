@@ -1,0 +1,602 @@
+{
+  "nextPage": "http://data.bn.org.pl/api/bibs.json?id=5474567&sinceId=5474568",
+  "bibs": [
+    {
+      "id": 5474567,
+      "createdDate": "2017-03-13T12:00:00.000Z",
+      "updatedDate": "2019-06-15T02:07:02.000Z",
+      "deleted": false,
+      "deletedDate": null,
+      "language": "angielski",
+      "subject": "Język angielski (przedmiot szkolny) Sadomasochizm",
+      "subjectPlace": "",
+      "subjectTime": "",
+      "subjectWork": "",
+      "isbnIssn": "9788365646156",
+      "author": "Sacher-Masoch, Leopold von (1836-1895). Wydawnictwo [ze słownikiem].",
+      "placeOfPublication": "Ruda Śląska : Polska",
+      "location": "1 1",
+      "title": "Venus in furs = Wenus w futrze : z podręcznym słownikiem angielsko-polskim / Venus im Peltz, Wenus w futrze Ze Słownikiem (seria)",
+      "udc": "811.111:811.162.1'374 821.112.2(436)-3 18",
+      "publisher": "Wydawnictwo [ze słownikiem]. Ze Słownikiem,",
+      "kind": "książka",
+      "domain": "Edukacja i pedagogika Językoznawstwo",
+      "formOfWork": "Książki Proza Publikacje dydaktyczne",
+      "genre": "Materiały pomocnicze Powieść",
+      "timePeriodOfCreation": "1870",
+      "audienceGroup": "B2 (poziom biegłości językowej) C1 (poziom biegłości językowej)",
+      "demographicGroup": "Literatura austriacka",
+      "nationalBibliographyNumber": "PB 2017/11847",
+      "publicationYear": "2016",
+      "languageOfOriginal": "niemiecki",
+      "marc": {
+        "leader": "01936nam a2200553 i 4500",
+        "fields": [
+          {
+            "001": "b0000005474567"
+          },
+          {
+            "005": "20190615020702.0"
+          },
+          {
+            "008": "170313s2016    pl           |000 f eng  "
+          },
+          {
+            "009": "9910183786705606"
+          },
+          {
+            "015": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "PB 2017/11847"
+                }
+              ]
+            }
+          },
+          {
+            "020": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "9788365646156"
+                },
+                {
+                  "c": "zł 29"
+                }
+              ]
+            }
+          },
+          {
+            "035": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "991005435579705066"
+                }
+              ]
+            }
+          },
+          {
+            "035": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "(PL-WaBN)b54745676-48omnis_nlop"
+                }
+              ]
+            }
+          },
+          {
+            "035": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "b54745676"
+                }
+              ]
+            }
+          },
+          {
+            "035": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "(OCoLC)995786118"
+                }
+              ]
+            }
+          },
+          {
+            "035": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "(PL)b0000005474567"
+                }
+              ]
+            }
+          },
+          {
+            "040": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "WA N"
+                },
+                {
+                  "c": "WA N"
+                }
+              ]
+            }
+          },
+          {
+            "041": {
+              "ind1": "1",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "eng"
+                },
+                {
+                  "h": "ger"
+                }
+              ]
+            }
+          },
+          {
+            "046": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "k": "1870"
+                }
+              ]
+            }
+          },
+          {
+            "080": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "811.111:811.162.1'374"
+                }
+              ]
+            }
+          },
+          {
+            "080": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "821.112.2(436)-3"
+                }
+              ]
+            }
+          },
+          {
+            "084": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "18"
+                }
+              ]
+            }
+          },
+          {
+            "100": {
+              "ind1": "1",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Sacher-Masoch, Leopold von"
+                },
+                {
+                  "d": "(1836-1895)."
+                },
+                {
+                  "e": "Autor"
+                }
+              ]
+            }
+          },
+          {
+            "245": {
+              "ind1": "1",
+              "ind2": "0",
+              "subfields": [
+                {
+                  "a": "Venus in furs ="
+                },
+                {
+                  "b": "Wenus w futrze : z podręcznym słownikiem angielsko-polskim /"
+                },
+                {
+                  "c": "Leopold von Sacher-Masoch."
+                }
+              ]
+            }
+          },
+          {
+            "246": {
+              "ind1": "1",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "i": "Tytuł oryginału:"
+                },
+                {
+                  "a": "Venus im Peltz,"
+                },
+                {
+                  "f": "1870"
+                }
+              ]
+            }
+          },
+          {
+            "246": {
+              "ind1": "3",
+              "ind2": "1",
+              "subfields": [
+                {
+                  "a": "Wenus w futrze"
+                }
+              ]
+            }
+          },
+          {
+            "260": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Ruda Śląska :"
+                },
+                {
+                  "b": "Ze Słownikiem,"
+                },
+                {
+                  "c": "2016."
+                }
+              ]
+            }
+          },
+          {
+            "300": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "276, [1] strona ;"
+                },
+                {
+                  "c": "21 cm."
+                }
+              ]
+            }
+          },
+          {
+            "336": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Tekst"
+                },
+                {
+                  "b": "txt"
+                },
+                {
+                  "2": "rdacontent"
+                }
+              ]
+            }
+          },
+          {
+            "337": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Bez urządzenia pośredniczącego"
+                },
+                {
+                  "b": "n"
+                },
+                {
+                  "2": "rdamedia"
+                }
+              ]
+            }
+          },
+          {
+            "338": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Wolumin"
+                },
+                {
+                  "b": "nc"
+                },
+                {
+                  "2": "rdacarrier"
+                }
+              ]
+            }
+          },
+          {
+            "380": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Książki"
+                }
+              ]
+            }
+          },
+          {
+            "380": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Proza"
+                }
+              ]
+            }
+          },
+          {
+            "380": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Publikacje dydaktyczne"
+                }
+              ]
+            }
+          },
+          {
+            "385": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "m": "Poziom nauczania"
+                },
+                {
+                  "a": "B2 (poziom biegłości językowej)"
+                }
+              ]
+            }
+          },
+          {
+            "385": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "m": "Poziom nauczania"
+                },
+                {
+                  "a": "C1 (poziom biegłości językowej)"
+                }
+              ]
+            }
+          },
+          {
+            "386": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "m": "Przynależność kulturowa"
+                },
+                {
+                  "a": "Literatura austriacka"
+                }
+              ]
+            }
+          },
+          {
+            "388": {
+              "ind1": "1",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "1801-1900"
+                }
+              ]
+            }
+          },
+          {
+            "490": {
+              "ind1": "1",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Ze Słownikiem. Erotica"
+                }
+              ]
+            }
+          },
+          {
+            "650": {
+              "ind1": " ",
+              "ind2": "7",
+              "subfields": [
+                {
+                  "a": "Język angielski (przedmiot szkolny)"
+                },
+                {
+                  "2": "DBN"
+                }
+              ]
+            }
+          },
+          {
+            "650": {
+              "ind1": " ",
+              "ind2": "7",
+              "subfields": [
+                {
+                  "a": "Sadomasochizm"
+                },
+                {
+                  "2": "DBN"
+                }
+              ]
+            }
+          },
+          {
+            "655": {
+              "ind1": " ",
+              "ind2": "7",
+              "subfields": [
+                {
+                  "a": "Materiały pomocnicze"
+                },
+                {
+                  "2": "DBN"
+                }
+              ]
+            }
+          },
+          {
+            "655": {
+              "ind1": " ",
+              "ind2": "7",
+              "subfields": [
+                {
+                  "a": "Powieść"
+                },
+                {
+                  "2": "DBN"
+                }
+              ]
+            }
+          },
+          {
+            "658": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Edukacja i pedagogika"
+                }
+              ]
+            }
+          },
+          {
+            "658": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Językoznawstwo"
+                }
+              ]
+            }
+          },
+          {
+            "710": {
+              "ind1": "2",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "a": "Wydawnictwo [ze słownikiem]."
+                },
+                {
+                  "e": "Wydawca"
+                },
+                {
+                  "4": "pbl"
+                }
+              ]
+            }
+          },
+          {
+            "830": {
+              "ind1": " ",
+              "ind2": "0",
+              "subfields": [
+                {
+                  "a": "Ze Słownikiem (seria)"
+                }
+              ]
+            }
+          },
+          {
+            "852": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "8": "22486879590005066"
+                },
+                {
+                  "j": "1"
+                },
+                {
+                  "h": "3.014.665 A"
+                },
+                {
+                  "b": "BN_PL"
+                },
+                {
+                  "p": "30001024554488"
+                },
+                {
+                  "c": "bk1"
+                }
+              ]
+            }
+          },
+          {
+            "852": {
+              "ind1": " ",
+              "ind2": " ",
+              "subfields": [
+                {
+                  "8": "22486879620005066"
+                },
+                {
+                  "j": "1"
+                },
+                {
+                  "h": "2.956.574"
+                },
+                {
+                  "b": "BN_PL"
+                },
+                {
+                  "p": "30001024554471"
+                },
+                {
+                  "c": "bk8"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
